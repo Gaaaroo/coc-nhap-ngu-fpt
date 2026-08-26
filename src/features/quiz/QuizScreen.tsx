@@ -28,22 +28,25 @@ export function QuizScreen() {
   return (
     <ScreenShell
       eyebrow={copy.groups[question.group]}
-      title="Trắc nghiệm lối sống"
+      title={copy.quiz.title}
       onBack={quizIndex === 0 ? goBack : undefined}
       progress={{
         value: Math.min(quizIndex + 1, questions.length),
         max: questions.length,
-        label: `Câu ${Math.min(quizIndex + 1, questions.length)}/${questions.length}`,
+        label: copy.quiz.counter(Math.min(quizIndex + 1, questions.length), questions.length),
       }}
     >
       <p className="text-lg font-medium leading-snug text-ink">{question.prompt}</p>
       <div className="mt-4 space-y-2">
-        {question.options.map((opt) => (
+        {question.options.map((opt, i) => (
           <OptionCard
             key={opt.id}
             selected={selected === opt.id}
             onSelect={() => choose(opt.id)}
           >
+            <span className="mr-3 inline-block w-6 font-oswald text-brass">
+              {String.fromCharCode(65 + i)}
+            </span>
             {opt.label}
           </OptionCard>
         ))}

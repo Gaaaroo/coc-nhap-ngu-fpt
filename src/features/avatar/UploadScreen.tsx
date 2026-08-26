@@ -23,7 +23,7 @@ export function UploadScreen() {
       setSourceImage(url);
       go('avatarCrop');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Chọn ảnh JPG hoặc PNG khác.');
+      setError(e instanceof Error ? e.message : copy.upload.error);
     } finally {
       setBusy(false);
     }
@@ -31,23 +31,23 @@ export function UploadScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Avatar"
-      title="Ghép mặt vào khung"
+      eyebrow={copy.upload.eyebrow}
+      title={copy.upload.title}
       onBack={goBack}
       footer={
         <Button onClick={() => inputRef.current?.click()} disabled={busy}>
-          {busy ? 'Đang đọc ảnh…' : copy.cta.pickPhoto}
+          {busy ? copy.upload.reading : copy.cta.pickPhoto}
         </Button>
       }
     >
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="flex min-h-48 w-full items-center justify-center rounded-[4px] border-2 border-dashed border-outline bg-surface px-4 text-center text-ink-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
+        className="flex min-h-48 w-full flex-col items-center justify-center rounded-[4px] border-2 border-dashed border-brass/70 bg-surface px-4 text-center text-ink-muted shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
       >
-        Chạm để chọn ảnh có sẵn trên máy
+        {copy.upload.dropZone}
       </button>
-      <p className="mt-3 text-sm text-ink-muted">{copy.privacyPhoto}</p>
+      <p className="mt-3 text-sm text-ink-muted">{copy.upload.privacy}</p>
       {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
       <input
         ref={inputRef}

@@ -7,8 +7,6 @@ import { track } from '../../lib/analytics';
 import { canShareFiles, downloadFile, isInAppBrowser, shareFile } from '../../lib/share';
 import { useSession } from '../../store/session.store';
 
-const FRAME = '/frames/recruit-frame.svg';
-
 export function PreviewScreen() {
   const sourceImageUrl = useSession((s) => s.sourceImageUrl);
   const cropPixels = useSession((s) => s.cropPixels);
@@ -25,14 +23,14 @@ export function PreviewScreen() {
     let cancelled = false;
     void (async () => {
       try {
-        const blob = await composeAvatar(sourceImageUrl, cropPixels, FRAME);
+        const blob = await composeAvatar(sourceImageUrl, cropPixels);
         if (cancelled) return;
         const nextFile = blobToFile(blob);
         setFile(nextFile);
         setAvatarBlobUrl(URL.createObjectURL(blob));
       } catch (e) {
         if (!cancelled) {
-          setError(e instanceof Error ? e.message : 'Không ghép được avatar.');
+          setError(e instanceof Error ? e.message : copy.preview.error);
         }
       }
     })();
@@ -61,24 +59,26 @@ export function PreviewScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Xuất quân"
-      title="Avatar tân binh"
+      eyebrow={copy.preview.eyebrow}
+      title={copy.preview.title}
       onBack={goBack}
       footer={
         <div className="space-y-2">
-          {inApp ? (
-            <p className="text-sm text-ink-muted">{copy.inAppBrowser}</p>
-          ) : null}
+          {inApp ? <p className="text-sm text-ink-muted">{copy.preview.inAppBrowser}</p> : null}
           {shareOk && !inApp ? (
             <Button onClick={() => void onShare()}>
-              {shareState === 'shared' ? 'Đã chia sẻ' : copy.cta.share}
+              {shareState === 'shared' ? copy.preview.shared : copy.cta.share}
             </Button>
           ) : null}
-          <Button variant={shareOk && !inApp ? 'secondary' : 'primary'} onClick={onDownload}>
+          <Button
+            variant={shareOk && !inApp ? 'secondary' : 'primary'}
+            disabled={!file}
+            onClick={onDownload}
+          >
             {copy.cta.download}
           </Button>
           <Button variant="ghost" className="w-full" onClick={() => go('done')}>
-            Hoàn thành
+            {copy.cta.finish}
           </Button>
         </div>
       }
@@ -86,13 +86,14 @@ export function PreviewScreen() {
       {avatarBlobUrl ? (
         <img
           src={avatarBlobUrl}
-          alt="Avatar tân binh đã ghép khung"
-          className="mx-auto w-full max-w-[360px] rounded-[4px] border-2 border-brass"
+          alt={copy.preview.alt}
+          className="plate-brass mx-auto w-full max-w-[360px]"
         />
+      ) : error ? (
+        <p className="text-sm text-danger">{error}</p>
       ) : (
-        <p className="text-ink-muted">Đang ghép khung…</p>
+        <p className="text-ink-muted">{copy.preview.composing}</p>
       )}
-      {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
     </ScreenShell>
   );
 }

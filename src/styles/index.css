@@ -9,19 +9,20 @@
   --font-oswald: "Oswald", sans-serif;
   --font-bevietnam: "Be Vietnam Pro", sans-serif;
 
-  --color-bg: #141810;
-  --color-surface: #1f2918;
-  --color-surface-2: #2a3522;
+  --color-bg: #0e120c;
+  --color-surface: #1a2216;
+  --color-surface-2: #252e1e;
   --color-ink: #f3ede0;
-  --color-ink-muted: #c4bba8;
-  --color-brass: #e0a84a;
-  --color-on-brass: #1a1408;
-  --color-brass-deep: #b45309;
-  --color-outline: #6b614e;
-  --color-healthy: #8fbf6a;
-  --color-defect: #e08a3c;
+  --color-ink-muted: #c6bba6;
+  --color-brass: #e2b34a;
+  --color-on-brass: #161108;
+  --color-brass-deep: #9a6b18;
+  --color-outline: #6f6754;
+  --color-healthy: #86c26a;
+  --color-defect: #e09448;
   --color-danger: #e25c4a;
-  --color-disclaimer-bg: #2b2214;
+  --color-disclaimer-bg: #2a2214;
+  --color-highlight: #ffffff14;
 }
 
 html {
@@ -37,14 +38,44 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-bevietnam);
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgb(226 179 74 / 0.07), transparent 52%),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 7px,
+      rgb(111 103 84 / 0.07) 7px,
+      rgb(111 103 84 / 0.07) 8px
+    );
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-on-brass);
 }
 
 button {
   font-family: inherit;
+}
+
+.plate {
+  border: 1px solid var(--color-outline);
+  border-radius: 4px;
+  background: var(--color-surface);
+  box-shadow: inset 0 1px 0 var(--color-highlight);
+}
+
+.plate-brass {
+  border: 2px solid var(--color-brass);
+  border-radius: 4px;
+  background: var(--color-surface);
+  box-shadow:
+    inset 0 1px 0 var(--color-highlight),
+    0 0 0 1px rgb(154 107 24 / 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

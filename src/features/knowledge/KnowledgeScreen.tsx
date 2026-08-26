@@ -15,13 +15,13 @@ export function KnowledgeScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Bí kíp tân binh"
+      eyebrow={copy.knowledge.eyebrow}
       title={card.title}
       onBack={index === 0 ? goBack : undefined}
       progress={{
         value: index + 1,
         max: knowledgeCards.length,
-        label: `Thẻ ${index + 1}/${knowledgeCards.length}`,
+        label: copy.knowledge.counter(index + 1, knowledgeCards.length),
       }}
       footer={
         last ? (
@@ -33,22 +33,27 @@ export function KnowledgeScreen() {
               disabled={index === 0}
               onClick={() => setKnowledgeIndex(Math.max(0, index - 1))}
             >
-              Trước
+              {copy.knowledge.prev}
             </Button>
-            <Button onClick={() => setKnowledgeIndex(index + 1)}>Tiếp</Button>
+            <Button onClick={() => setKnowledgeIndex(index + 1)}>{copy.knowledge.next}</Button>
           </div>
         )
       }
     >
-      <article className="relative rounded-[4px] border border-outline bg-surface p-4">
-        <p className="font-oswald text-xs tracking-[0.16em] text-brass uppercase">
+      <article className="plate relative p-4">
+        <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
           {copy.groups[card.group]}
         </p>
         <p className="mt-3 text-base leading-relaxed text-ink">{card.body}</p>
-        {next ? (
-          <p className="mt-6 truncate text-sm text-ink-muted">Tiếp: {next.title}</p>
-        ) : null}
       </article>
+      {next ? (
+        <p className="plate mt-3 truncate px-3 py-2 text-sm text-ink-muted">
+          <span className="mr-2 font-oswald tracking-[0.12em] text-brass uppercase">
+            {copy.knowledge.nextUp}
+          </span>
+          {next.title}
+        </p>
+      ) : null}
     </ScreenShell>
   );
 }

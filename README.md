@@ -28,7 +28,7 @@ npm run preview
 | `src/config/knowledge.config.ts` | Thẻ kiến thức |
 | `src/config/copy.config.ts` | Disclaimer, nhãn |
 
-Khung avatar: `public/frames/recruit-frame.svg` (1080×1080).
+Khung avatar được vẽ bằng Canvas trong `src/lib/canvas.ts`, không phụ thuộc file ảnh. Khi có bản thiết kế PNG 1080×1080 nền trong suốt, bỏ vào `public/frames/` rồi trỏ đường dẫn ở `src/config/avatar.config.ts`.
 
 Analytics ẩn danh (tuỳ chọn): set `VITE_ANALYTICS_URL` trong `.env`. Payload chỉ có tên bước, không có chỉ số hay ảnh.
 

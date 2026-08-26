@@ -19,17 +19,16 @@ export function ResultScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Kết quả phiên"
-      title="Bẻ khuyết, biết khỏe"
+      eyebrow={copy.result.eyebrow}
+      title={copy.result.title}
       footer={<Button onClick={() => go('knowledge')}>{copy.cta.readTips}</Button>}
     >
-      <Radar values={values} />
-      <div className="mt-2">
+      <div className="plate px-2 pt-2">
+        <Radar values={values} />
+      </div>
+      <div className="mt-3">
         <DogTagCard result={result} />
       </div>
-      <p className="mt-3 text-sm text-ink-muted">
-        {result.bmi.label} · {result.fitness.label} ({result.fitness.reps} lần)
-      </p>
       <div className="mt-4">
         <DisclaimerWell />
       </div>

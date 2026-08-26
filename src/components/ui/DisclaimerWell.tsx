@@ -2,11 +2,12 @@ import { copy } from '../../config/copy.config';
 
 export function DisclaimerWell() {
   return (
-    <aside className="rounded-[4px] border border-outline bg-disclaimer-bg p-3">
-      <p className="font-oswald text-xs tracking-[0.14em] text-brass uppercase">
+    <aside className="relative overflow-hidden rounded-[4px] border border-outline bg-disclaimer-bg p-3 pl-4 shadow-[inset_0_1px_0_var(--color-highlight)]">
+      <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-brass" />
+      <p className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase">
         {copy.disclaimer.title}
       </p>
-      <p className="mt-2 text-[14px] leading-snug text-ink">{copy.disclaimer.body}</p>
+      <p className="mt-2 text-[14px] leading-relaxed text-ink">{copy.disclaimer.body}</p>
     </aside>
   );
 }

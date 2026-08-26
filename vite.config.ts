@@ -10,13 +10,13 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['frames/recruit-frame.svg', 'icons/icon.svg'],
+      includeAssets: ['icons/icon.svg'],
       manifest: {
         name: 'Mật mã số 4 — Cóc Nhập Ngũ 2026',
         short_name: 'Mật mã số 4',
         description: 'Booth 4: Bẻ điểm khuyết – Biết điểm khỏe',
-        theme_color: '#141810',
-        background_color: '#141810',
+        theme_color: '#0E120C',
+        background_color: '#0E120C',
         display: 'standalone',
         start_url: '/',
         lang: 'vi',

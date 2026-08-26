@@ -6,23 +6,23 @@ import type { ScoringConfig } from '../domain/types';
  */
 export const scoringConfig: ScoringConfig = {
   bmiBands: [
-    { band: 'under', min: 0, max: 18.5, score: 62, label: 'Dinh dưỡng cần bổ sung' },
-    { band: 'fit', min: 18.5, max: 25, score: 100, label: 'Hình thể sẵn sàng' },
-    { band: 'high', min: 25, max: 30, score: 72, label: 'Cần siết lại kỷ luật' },
-    { band: 'veryHigh', min: 30, max: 100, score: 48, label: 'Ưu tiên điều chỉnh lối sống' },
+    { band: 'under', min: 0, max: 18.5, score: 62, label: 'Hơi nhẹ cân' },
+    { band: 'fit', min: 18.5, max: 25, score: 100, label: 'Cân đối' },
+    { band: 'high', min: 25, max: 30, score: 72, label: 'Hơi dư cân' },
+    { band: 'veryHigh', min: 30, max: 100, score: 48, label: 'Dư cân' },
   ],
   fitnessBands: {
     female: [
-      { band: 'low', min: 0, max: 6, score: 40, label: 'Cần tăng sức bền' },
-      { band: 'fair', min: 6, max: 12, score: 68, label: 'Đang vào nhịp' },
-      { band: 'solid', min: 12, max: 20, score: 88, label: 'Sức kéo ổn' },
-      { band: 'peak', min: 20, max: 999, score: 100, label: 'Tân binh cứng' },
+      { band: 'low', min: 0, max: 6, score: 40, label: 'Mới khởi động' },
+      { band: 'fair', min: 6, max: 12, score: 68, label: 'Khá' },
+      { band: 'solid', min: 12, max: 20, score: 88, label: 'Tốt' },
+      { band: 'peak', min: 20, max: 999, score: 100, label: 'Rất tốt' },
     ],
     male: [
-      { band: 'low', min: 0, max: 8, score: 40, label: 'Cần tăng sức bền' },
-      { band: 'fair', min: 8, max: 16, score: 68, label: 'Đang vào nhịp' },
-      { band: 'solid', min: 16, max: 26, score: 88, label: 'Sức kéo ổn' },
-      { band: 'peak', min: 26, max: 999, score: 100, label: 'Tân binh cứng' },
+      { band: 'low', min: 0, max: 8, score: 40, label: 'Mới khởi động' },
+      { band: 'fair', min: 8, max: 16, score: 68, label: 'Khá' },
+      { band: 'solid', min: 16, max: 26, score: 88, label: 'Tốt' },
+      { band: 'peak', min: 26, max: 999, score: 100, label: 'Rất tốt' },
     ],
   },
   groupWeights: {

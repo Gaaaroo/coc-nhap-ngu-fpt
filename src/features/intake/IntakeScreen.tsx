@@ -22,8 +22,8 @@ export function IntakeScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Bước 1"
-      title="Chỉ số hình thể"
+      eyebrow={copy.intake.eyebrow}
+      title={copy.intake.title}
       onBack={goBack}
       footer={
         <>
@@ -31,22 +31,24 @@ export function IntakeScreen() {
             {copy.cta.continue}
           </Button>
           {!gender ? (
-            <p className="mt-2 text-center text-sm text-ink-muted">Chọn nam hoặc nữ để tiếp tục</p>
+            <p className="mt-2 text-center text-sm text-ink-muted">{copy.intake.needGender}</p>
           ) : null}
         </>
       }
     >
-      <div className="space-y-2">
+      <div className="grid grid-cols-2 gap-2">
         <OptionCard selected={gender === 'female'} onSelect={() => setMetrics({ gender: 'female' })}>
-          Nữ — thanh 20kg
+          <span className="block font-oswald tracking-wide">{copy.intake.female}</span>
+          <span className="mt-1 block text-sm text-ink-muted">{copy.intake.femaleHint}</span>
         </OptionCard>
         <OptionCard selected={gender === 'male'} onSelect={() => setMetrics({ gender: 'male' })}>
-          Nam — thanh 30kg
+          <span className="block font-oswald tracking-wide">{copy.intake.male}</span>
+          <span className="mt-1 block text-sm text-ink-muted">{copy.intake.maleHint}</span>
         </OptionCard>
       </div>
       <div className="mt-4 space-y-3">
         <NumberStepper
-          label="Tuổi"
+          label={copy.intake.age}
           unit="tuổi"
           value={age}
           min={METRIC_LIMITS.age.min}
@@ -54,7 +56,7 @@ export function IntakeScreen() {
           onChange={(v) => setMetrics({ age: v })}
         />
         <NumberStepper
-          label="Chiều cao"
+          label={copy.intake.height}
           unit="cm"
           value={height}
           min={METRIC_LIMITS.heightCm.min}
@@ -62,7 +64,7 @@ export function IntakeScreen() {
           onChange={(v) => setMetrics({ heightCm: v })}
         />
         <NumberStepper
-          label="Cân nặng"
+          label={copy.intake.weight}
           unit="kg"
           value={weight}
           min={METRIC_LIMITS.weightKg.min}
@@ -70,12 +72,12 @@ export function IntakeScreen() {
           onChange={(v) => setMetrics({ weightKg: v })}
         />
       </div>
-      <div className="mt-4 rounded-[4px] border-2 border-brass bg-surface p-3">
-        <p className="font-oswald text-xs tracking-[0.16em] text-brass uppercase">
-          {copy.bodyIndex}
+      <div className="plate-brass mt-4 p-3">
+        <p className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase">
+          {copy.bmiLabel}
         </p>
-        <p className="font-oswald text-4xl text-brass">{roundBmiDisplay(bmi.value)}</p>
-        <p className="text-sm text-ink-muted">{bmi.label}</p>
+        <p className="mt-1 font-oswald text-4xl leading-none text-brass">{roundBmiDisplay(bmi.value)}</p>
+        <p className="mt-1 text-sm text-ink-muted">{bmi.label}</p>
       </div>
     </ScreenShell>
   );

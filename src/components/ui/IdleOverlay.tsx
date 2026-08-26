@@ -9,10 +9,11 @@ interface Props {
 
 export function IdleOverlay({ seconds, onStay, onReset }: Props) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4">
-      <div className="w-full max-w-[430px] rounded-[4px] border border-danger bg-disclaimer-bg p-4">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 p-4">
+      <div className="relative w-full max-w-[430px] overflow-hidden rounded-[4px] border border-danger bg-disclaimer-bg p-4 shadow-[inset_0_1px_0_var(--color-highlight)]">
+        <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-danger" />
         <p className="font-oswald text-lg tracking-wide text-danger">{copy.idle.title}</p>
-        <p className="mt-2 text-sm text-ink">{copy.idle.body}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink">{copy.idle.body}</p>
         <p className="mt-3 font-oswald text-4xl text-brass" aria-live="assertive">
           {seconds}s
         </p>

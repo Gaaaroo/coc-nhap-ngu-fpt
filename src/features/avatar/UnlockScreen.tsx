@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
 import { ScreenShell } from '../../components/ui/ScreenShell';
@@ -17,19 +17,25 @@ export function UnlockScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Phần thưởng"
-      title="Khung tân binh đã mở"
-      footer={
-        <Button onClick={() => go('avatarUpload')}>{copy.cta.makeAvatar}</Button>
-      }
+      eyebrow={copy.unlock.eyebrow}
+      title={copy.unlock.title}
+      footer={<Button onClick={() => go('avatarUpload')}>{copy.cta.makeAvatar}</Button>}
     >
-      <div className="flex min-h-[40vh] flex-col items-center justify-center">
-        <div className="relative h-40 w-40 border-2 border-brass">
-          <span className="absolute inset-3 border border-brass-deep" />
-          <span className="absolute inset-0 flex items-center justify-center font-oswald text-sm tracking-[0.2em] text-brass">
-            TÂN BINH
+      <div className="flex min-h-[44vh] flex-col items-center justify-center">
+        <motion.div
+          initial={reduce ? false : { scale: 0.86, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: reduce ? 0.2 : 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+          className="relative flex h-44 w-44 items-center justify-center border-2 border-brass bg-surface shadow-[inset_0_0_0_8px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]"
+        >
+          <span className="absolute top-3 left-3 h-2 w-2 bg-brass" />
+          <span className="absolute top-3 right-3 h-2 w-2 bg-brass" />
+          <span className="absolute bottom-3 left-3 h-2 w-2 bg-brass" />
+          <span className="absolute right-3 bottom-3 h-2 w-2 bg-brass" />
+          <span className="font-oswald text-base tracking-[0.22em] text-brass">
+            {copy.unlock.badge}
           </span>
-        </div>
+        </motion.div>
       </div>
     </ScreenShell>
   );

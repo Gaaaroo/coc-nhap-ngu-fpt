@@ -15,28 +15,23 @@ export function FitnessScreen() {
 
   return (
     <ScreenShell
-      eyebrow="Bước 2"
-      title="Thanh lò xo 20 giây"
+      eyebrow={copy.fitness.eyebrow}
+      title={`${copy.fitness.title} ${kg}kg`}
       onBack={goBack}
-      footer={
-        <Button onClick={() => go('quiz')}>{copy.cta.logFitness}</Button>
-      }
+      footer={<Button onClick={() => go('quiz')}>{copy.cta.continue}</Button>}
     >
-      <p className="text-base leading-relaxed text-ink">
-        Tình nguyện viên đếm số lần gập trong 20 giây. Thanh {kg}kg theo giới tính đã chọn. App
-        không đo tự động — chỉ ghi nhận kết quả.
-      </p>
+      <p className="plate px-3 py-3 text-base leading-relaxed text-ink">{copy.fitness.guide}</p>
       <div className="mt-4">
         <NumberStepper
-          label="Số lần gập"
-          unit="lần"
+          label={copy.fitness.reps}
+          unit={copy.fitness.repsUnit}
           value={reps}
           min={METRIC_LIMITS.reps.min}
           max={METRIC_LIMITS.reps.max}
           onChange={setFitness}
         />
       </div>
-      <p className="mt-3 text-sm text-ink-muted">{copy.experienceLabel} — chưa phải chuẩn y khoa.</p>
+      <p className="mt-3 text-sm text-ink-muted">{copy.referenceOnly}</p>
     </ScreenShell>
   );
 }

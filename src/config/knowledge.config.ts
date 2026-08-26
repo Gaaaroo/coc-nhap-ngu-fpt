@@ -1,35 +1,35 @@
 import type { KnowledgeCard } from '../domain/types';
 
-/** [CHỜ FSD / BTC] Nội dung giáo dục chung — không chẩn đoán cá nhân. */
+/** [CHỜ FSD / BTC] Kiến thức chung về lối sống — không nhắm vào cá nhân người chơi. */
 export const knowledgeCards: KnowledgeCard[] = [
   {
     id: 'k-sleep',
     group: 'sleep',
-    title: 'Giấc ngủ là phiên gác',
-    body: 'Cơ thể phục hồi hormone và nhịp sinh học khi ngủ đủ, đều. Thiếu ngủ kéo dài làm mệt, khó tập trung — đó là tín hiệu lối sống, không phải kết luận y tế về sinh sản.',
+    title: 'Ngủ đủ trước đã, tính chuyện khác sau',
+    body: 'Ngủ 7–8 tiếng đều đặn là lúc cơ thể phục hồi và nội tiết trở lại nhịp bình thường. Thức khuya vài hôm thì chưa sao, nhưng thiếu ngủ kéo dài sẽ kéo theo mệt mỏi, khó tập trung và ăn uống thất thường.',
   },
   {
     id: 'k-nutrition',
     group: 'nutrition',
-    title: 'Bếp là kho lương',
-    body: 'Ăn đủ nhóm, hạn chế đường uống, giúp năng lượng ổn. Dinh dưỡng tốt hỗ trợ sức khỏe tổng quát. App không đánh giá khả năng sinh sản của từng người.',
+    title: 'Một bữa nên có đủ ba phần',
+    body: 'Tinh bột, đạm và rau trong cùng một bữa giúp bạn no lâu, đỡ tụt năng lượng giữa buổi. Trà sữa hay nước ngọt không xấu, chỉ là uống ngày nào cũng có thì lượng đường cộng dồn nhanh hơn bạn tưởng.',
   },
   {
     id: 'k-hydration',
     group: 'hydration',
-    title: 'Nước lọc là tiếp tế',
-    body: 'Uống nước đều trong ngày giúp cơ thể làm việc trơn. Khát khô cổ là dấu hiệu đến muộn. Đây là kiến thức lối sống chung, không phải đơn thuốc.',
+    title: 'Uống nước trước khi thấy khát',
+    body: 'Đến lúc khát khô cổ thì cơ thể đã thiếu nước từ trước rồi. Khoảng 1,5–2 lít mỗi ngày, chia đều ra, dễ hơn nhiều so với uống dồn một lúc. Cà phê và nước ngọt không thay được nước lọc.',
   },
   {
     id: 'k-activity',
     group: 'activity',
-    title: 'Vận động là huấn luyện',
-    body: 'Di chuyển đều đặn tốt cho tim, cơ, tinh thần. Test thanh lò xo ở booth chỉ là benchmark trải nghiệm, không thay khám sức khỏe.',
+    title: 'Không cần tập nặng, chỉ cần đừng ngồi lì',
+    body: 'Đi bộ nhanh, đá bóng, leo cầu thang — cộng lại được khoảng 150 phút mỗi tuần là đã tốt cho tim mạch. Điều nên tránh là ngồi liền 6–8 tiếng không đứng dậy lần nào.',
   },
   {
     id: 'k-mental',
     group: 'mental',
-    title: 'Tinh thần là kỷ luật',
-    body: 'Căng thẳng kéo dài dễ kéo theo ngủ kém và ăn uống lệch. Có khoảng lặng trong ngày là cách tân binh giữ nhịp — không phải chẩn đoán tâm lý.',
+    title: 'Căng thẳng thường ăn vào giấc ngủ',
+    body: 'Áp lực học hành hay công việc kéo dài ít khi dừng ở đó, nó quay lại dưới dạng mất ngủ và ăn uống lung tung. Mỗi ngày để ra 15 phút rời màn hình — đi bộ, nghe nhạc, nói chuyện với bạn bè — là cách rẻ nhất để cắt vòng lặp.',
   },
 ];

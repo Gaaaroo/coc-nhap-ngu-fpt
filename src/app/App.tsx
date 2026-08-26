@@ -44,9 +44,9 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.div
           key={step}
-          initial={{ opacity: reduce ? 1 : 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: reduce ? 1 : 0 }}
+          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : -6 }}
           transition={{ duration: reduce ? 0.2 : 0.2, ease: [0.2, 0.8, 0.2, 1] }}
         >
           <Screen />

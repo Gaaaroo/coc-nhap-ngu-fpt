@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { copy } from '../../config/copy.config';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { useSession } from '../../store/session.store';
 import { track } from '../../lib/analytics';
@@ -10,7 +11,7 @@ export function CalculatingScreen() {
 
   useEffect(() => {
     track('step_calculating');
-    const ms = reduce ? 200 : 1800;
+    const ms = reduce ? 200 : 1600;
     const id = window.setTimeout(() => {
       go('result');
       track('step_result');
@@ -19,10 +20,20 @@ export function CalculatingScreen() {
   }, [go, reduce]);
 
   return (
-    <ScreenShell eyebrow="Đóng dấu" title="Đang chấm phiên gác">
-      <div className="flex min-h-[40vh] flex-col items-center justify-center">
-        <div className="h-24 w-24 rounded-[4px] border-2 border-brass shadow-[inset_0_0_0_4px_#141810,0_0_0_2px_#b45309]" />
-        <p className="mt-6 font-oswald text-xl tracking-[0.2em] text-brass">ĐÓNG DẤU</p>
+    <ScreenShell eyebrow={copy.calculating.eyebrow} title={copy.calculating.title}>
+      <div className="flex min-h-[44vh] flex-col items-center justify-center">
+        <motion.div
+          initial={reduce ? false : { scale: 1.18, opacity: 0.4, rotate: -8 }}
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          transition={{ duration: reduce ? 0.2 : 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+          className="relative flex h-32 w-32 items-center justify-center border-2 border-brass bg-surface shadow-[inset_0_0_0_6px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]"
+        >
+          <span className="absolute top-2 left-2 h-2 w-2 bg-brass" />
+          <span className="absolute top-2 right-2 h-2 w-2 bg-brass" />
+          <span className="absolute bottom-2 left-2 h-2 w-2 bg-brass" />
+          <span className="absolute right-2 bottom-2 h-2 w-2 bg-brass" />
+          <p className="font-oswald text-sm tracking-[0.18em] text-brass">{copy.calculating.stamp}</p>
+        </motion.div>
       </div>
     </ScreenShell>
   );

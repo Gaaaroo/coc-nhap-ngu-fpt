@@ -8,11 +8,11 @@ export function ProgressBelt({ value, max, label }: Props) {
   const cells = Array.from({ length: max }, (_, i) => i < value);
   return (
     <div className="w-full">
-      <p className="mb-2 font-oswald text-xs tracking-[0.12em] text-ink-muted uppercase">
+      <p className="mb-2 font-oswald text-[11px] tracking-[0.16em] text-ink-muted uppercase">
         {label}
       </p>
       <div
-        className="flex gap-1"
+        className="flex items-center gap-1"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={max}
@@ -22,7 +22,11 @@ export function ProgressBelt({ value, max, label }: Props) {
         {cells.map((filled, i) => (
           <span
             key={i}
-            className={`h-2 flex-1 rounded-[1px] ${filled ? 'bg-brass' : 'bg-outline'}`}
+            className={`h-2.5 flex-1 rounded-full border ${
+              filled
+                ? 'border-brass-deep bg-brass shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]'
+                : 'border-outline/80 bg-surface-2'
+            }`}
           />
         ))}
       </div>

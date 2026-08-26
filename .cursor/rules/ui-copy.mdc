@@ -6,20 +6,38 @@ alwaysApply: false
 
 # Copy
 
-Source strings from `src/config/copy.config.ts` once it exists. Do not invent medical or English product-speak in the UI.
+All user-facing strings live in `src/config/copy.config.ts`, `questions.config.ts`, `knowledge.config.ts`, `scoring.config.ts`. Never hardcode Vietnamese in a `.tsx` file.
 
-**Voice:** tân binh, active, short. Name the outcome.
+**Voice:** spoken Vietnamese, the way a volunteer at the booth would talk to a student. Short sentences, active verbs, name the outcome.
+
+## Address the player as "bạn"
+
+`tân binh` is a badge, not a pronoun. It may appear on the score label, the frame, and the unlock screen — nowhere else. Never write "tân binh ngủ mấy tiếng"; write "bạn ngủ mấy tiếng" or drop the subject.
+
+## Don't force the military metaphor into content
+
+Keep it in screen titles, labels, and the visual system. Body copy and knowledge cards explain real things in plain words. Banned patterns: repeating an `X là Y` metaphor across sibling cards ("Giấc ngủ là phiên gác", "Bếp là kho lương"), and any phrase a Vietnamese speaker would have to decode ("chấm phiên gác", "xuất quân").
+
+## Say the disclaimer once
+
+`DisclaimerWell` on Landing and Result carries it. Do not append "không phải chẩn đoán" / "chưa phải chuẩn y khoa" to every knowledge card, question, or band label.
+
+## Plain Vietnamese, not English product-speak
+
+`benchmark` → `tham khảo`. `app` → `trang này` or drop it. `avatar` → `ảnh đại diện`. `test` → `bài đo`.
+
+## Result labels describe, never judge
+
+`Hơi dư cân`, `Mới khởi động` — not `Cần siết lại kỷ luật`, `Tân binh cứng`.
 
 | Role | Example |
 | --- | --- |
-| Primary | Bắt đầu kiểm tra / Ghi nhận kết quả / Dùng ảnh này / Tải về |
-| Result total | Điểm tân binh (not “score”, not fertility) |
+| Primary CTA | Bắt đầu / Tiếp tục / Dùng ảnh này / Tải ảnh về |
+| Result total | Điểm tân binh (not "score", not fertility) |
 | Strength | Điểm Khỏe |
 | Weakness | Điểm Khuyết |
-| Privacy | Ảnh không rời khỏi điện thoại này |
+| Privacy | Ảnh được xử lý ngay trên máy bạn, không gửi đi đâu cả |
 
-**Banned (fail the build if they appear):** `Fertility Score`, `Reproductive Health Score`, chẩn đoán, khả năng sinh sản as a personal verdict, “bạn bị…”, “nguy cơ vô sinh”.
+**Banned (fail the build if they appear):** `Fertility Score`, `Reproductive Health Score`, chẩn đoán, khả năng sinh sản as a personal verdict, "bạn bị…", "nguy cơ vô sinh".
 
-Errors say what to do: “Chọn ảnh JPG hoặc PNG khác”, not “Có lỗi xảy ra”.
-
-Disclaimer stays serious and visible. Buttons stay the same word before and after the action (Chia sẻ → Đã chia sẻ).
+Two buttons on one screen never carry the same label. Errors say what to do next: "Bạn chọn một tấm JPG hoặc PNG khác nhé", not "Có lỗi xảy ra". Buttons keep the same word before and after the action (Chia sẻ → Đã chia sẻ).

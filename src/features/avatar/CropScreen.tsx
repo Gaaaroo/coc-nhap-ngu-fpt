@@ -20,16 +20,19 @@ export function CropScreen() {
 
   if (!sourceImageUrl) {
     return (
-      <ScreenShell title="Thiếu ảnh" footer={<Button onClick={goBack}>{copy.cta.back}</Button>}>
-        <p>Chọn ảnh lại từ bước trước.</p>
+      <ScreenShell
+        title={copy.crop.missing}
+        footer={<Button onClick={goBack}>{copy.cta.back}</Button>}
+      >
+        <p>{copy.crop.missingBody}</p>
       </ScreenShell>
     );
   }
 
   return (
     <ScreenShell
-      eyebrow="Canh mặt"
-      title="Kéo và phóng to"
+      eyebrow={copy.crop.eyebrow}
+      title={copy.crop.title}
       onBack={goBack}
       footer={
         <Button
@@ -43,7 +46,7 @@ export function CropScreen() {
         </Button>
       }
     >
-      <div className="relative h-[min(70vw,360px)] w-full overflow-hidden rounded-[4px] bg-black">
+      <div className="relative h-[min(70vw,360px)] w-full overflow-hidden rounded-[4px] border border-brass bg-black">
         <Cropper
           image={sourceImageUrl}
           crop={crop}
@@ -59,7 +62,7 @@ export function CropScreen() {
         />
       </div>
       <label className="mt-4 flex items-center gap-3 text-sm text-ink-muted">
-        Phóng
+        {copy.crop.zoom}
         <input
           type="range"
           min={1}

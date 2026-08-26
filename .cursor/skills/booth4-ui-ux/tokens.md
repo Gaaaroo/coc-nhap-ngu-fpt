@@ -10,19 +10,20 @@ Booth is used in sun. Dark olive + light khaki text beats a washed-out light the
 
 | Role | Token | Hex | Use |
 | --- | --- | --- | --- |
-| Background | `--bg` | `#141810` | App canvas |
-| Surface | `--surface` | `#1F2918` | Cards, sheets |
-| Surface 2 | `--surface-2` | `#2A3522` | Nested well, stepper |
+| Background | `--bg` | `#0E120C` | App canvas |
+| Surface | `--surface` | `#1A2216` | Cards, sheets |
+| Surface 2 | `--surface-2` | `#252E1E` | Nested well, stepper |
 | On-surface | `--ink` | `#F3EDE0` | Body text |
-| On-surface muted | `--ink-muted` | `#C4BBA8` | Secondary; still ≥ 4.5:1 on `--bg` |
-| Primary (brass) | `--brass` | `#E0A84A` | CTA fill, progress fill, key numbers |
-| On-primary | `--on-brass` | `#1A1408` | Text/icon on brass buttons |
-| Primary container | `--brass-deep` | `#B45309` | Rules, eyebrows, BRD accent |
-| Outline | `--outline` | `#6B614E` | Borders; ≥ 3:1 vs `--bg` (WCAG 1.4.11) |
-| Strength | `--healthy` | `#8FBF6A` | Điểm Khỏe (never rely on color alone) |
-| Weakness | `--defect` | `#E08A3C` | Điểm Khuyết (never rely on color alone) |
+| On-surface muted | `--ink-muted` | `#C6BBA6` | Secondary; still ≥ 4.5:1 on `--bg` |
+| Primary (brass) | `--brass` | `#E2B34A` | CTA fill, progress fill, key numbers |
+| On-primary | `--on-brass` | `#161108` | Text/icon on brass buttons |
+| Primary container | `--brass-deep` | `#9A6B18` | Rules, rivets, corner ticks — not small body text |
+| Outline | `--outline` | `#6F6754` | Borders; ≥ 3:1 vs `--bg` (WCAG 1.4.11) |
+| Strength | `--healthy` | `#86C26A` | Điểm Khỏe (never rely on color alone) |
+| Weakness | `--defect` | `#E09448` | Điểm Khuyết (never rely on color alone) |
 | Danger | `--danger` | `#E25C4A` | Destructive / idle reset |
-| Disclaimer | `--disclaimer-bg` | `#2B2214` | Warning well |
+| Disclaimer | `--disclaimer-bg` | `#2A2214` | Warning well |
+| Highlight | `--highlight` | `#ffffff14` | Inset edge on stamped plates |
 
 Pairing rules (Material 3): text on a fill always uses the matching `on-*` role. Do not put `--ink` on `--brass`. Do not put `--brass-deep` as small body text on `--bg` (fails 4.5:1) — use `--brass` for small text, `--brass-deep` for ≥ 18pt/bold or for chrome.
 

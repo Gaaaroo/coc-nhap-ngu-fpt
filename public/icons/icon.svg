@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#141810"/>
-  <rect x="8" y="8" width="48" height="48" fill="none" stroke="#E0A84A" stroke-width="4"/>
-  <text x="32" y="40" text-anchor="middle" fill="#E0A84A" font-family="sans-serif" font-size="18" font-weight="700">4</text>
+  <rect width="64" height="64" fill="#0E120C"/>
+  <rect x="8" y="8" width="48" height="48" fill="none" stroke="#E2B34A" stroke-width="4"/>
+  <rect x="8" y="8" width="8" height="4" fill="#E2B34A"/>
+  <rect x="48" y="8" width="8" height="4" fill="#E2B34A"/>
+  <rect x="8" y="52" width="8" height="4" fill="#E2B34A"/>
+  <rect x="48" y="52" width="8" height="4" fill="#E2B34A"/>
+  <text x="32" y="41" text-anchor="middle" fill="#E2B34A" font-family="Oswald, sans-serif" font-size="22" font-weight="700">4</text>
 </svg>
