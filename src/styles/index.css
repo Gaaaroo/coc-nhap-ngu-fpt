@@ -1,0 +1,57 @@
+@import "@fontsource/oswald/600.css";
+@import "@fontsource/oswald/700.css";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+
+@import "tailwindcss";
+
+@theme {
+  --font-oswald: "Oswald", sans-serif;
+  --font-bevietnam: "Be Vietnam Pro", sans-serif;
+
+  --color-bg: #141810;
+  --color-surface: #1f2918;
+  --color-surface-2: #2a3522;
+  --color-ink: #f3ede0;
+  --color-ink-muted: #c4bba8;
+  --color-brass: #e0a84a;
+  --color-on-brass: #1a1408;
+  --color-brass-deep: #b45309;
+  --color-outline: #6b614e;
+  --color-healthy: #8fbf6a;
+  --color-defect: #e08a3c;
+  --color-danger: #e25c4a;
+  --color-disclaimer-bg: #2b2214;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  min-height: 100dvh;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-bevietnam);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+}

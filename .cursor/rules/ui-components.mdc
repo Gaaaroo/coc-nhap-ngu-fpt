@@ -1,0 +1,28 @@
+---
+description: Booth 4 React/Tailwind component and screen patterns
+globs: "**/*.{tsx,css}"
+alwaysApply: false
+---
+
+# UI implementation
+
+Compose `src/components/ui/` from `.cursor/skills/booth4-ui-ux/components.md`. Do not fork button styles in features.
+
+```tsx
+// ❌ BAD
+<input type="number" className="h-8 text-xs" />
+<button className="bg-blue-600 rounded-full">Submit</button>
+
+// ✅ GOOD
+<NumberStepper value={cm} unit="cm" min={120} max={220} onChange={setCm} />
+<Button variant="primary">Tiếp tục</Button>
+```
+
+- Map colors via theme tokens (`bg-brass`, `text-ink`), not `bg-[#B45309]`.
+- `min-h-12 min-w-12`; primary `min-h-14 w-full` in a sticky footer with `pb-[env(safe-area-inset-bottom)]`.
+- `focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass`.
+- Wrap motion in `prefers-reduced-motion` (Framer `useReducedMotion`).
+- Quiz OptionCard auto-advances after 250ms; gender does not.
+- Lazy-load crop/share. Blob for share is prepared on Preview, not on tap.
+- `aria-live="polite"` on stepper value; progressbar on ProgressBelt.
+- Radius 4px on plates/buttons. Pills only for gender chips.

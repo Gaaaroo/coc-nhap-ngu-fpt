@@ -1,0 +1,25 @@
+---
+description: Vietnamese tân-binh copy and BR-11 language bans
+globs: "**/*.{tsx,ts}"
+alwaysApply: false
+---
+
+# Copy
+
+Source strings from `src/config/copy.config.ts` once it exists. Do not invent medical or English product-speak in the UI.
+
+**Voice:** tân binh, active, short. Name the outcome.
+
+| Role | Example |
+| --- | --- |
+| Primary | Bắt đầu kiểm tra / Ghi nhận kết quả / Dùng ảnh này / Tải về |
+| Result total | Điểm tân binh (not “score”, not fertility) |
+| Strength | Điểm Khỏe |
+| Weakness | Điểm Khuyết |
+| Privacy | Ảnh không rời khỏi điện thoại này |
+
+**Banned (fail the build if they appear):** `Fertility Score`, `Reproductive Health Score`, chẩn đoán, khả năng sinh sản as a personal verdict, “bạn bị…”, “nguy cơ vô sinh”.
+
+Errors say what to do: “Chọn ảnh JPG hoặc PNG khác”, not “Có lỗi xảy ra”.
+
+Disclaimer stays serious and visible. Buttons stay the same word before and after the action (Chia sẻ → Đã chia sẻ).

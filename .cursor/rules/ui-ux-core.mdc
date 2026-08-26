@@ -1,0 +1,25 @@
+---
+description: Booth 4 UI/UX laws — mobile kiosk, WCAG, tân-binh identity. Always on.
+alwaysApply: true
+---
+
+# Booth 4 UI/UX
+
+Before any visual or copy change, follow `.cursor/skills/booth4-ui-ux/SKILL.md`.
+
+**Product:** Cóc Nhập Ngũ 2026 Booth 4. Phone kiosk, 3–5 min, Vietnamese, outdoor, shared device.
+
+**Do**
+- Tokens only (`tokens.md`). Oswald + Be Vietnam Pro, self-hosted.
+- Touch ≥ 48×48px, 8px gap; primary CTA 56px, bottom thumb zone + safe-area.
+- Contrast ≥ 4.5:1 body (WCAG 2.2). Brass text on dark uses `--brass`, not `--brass-deep`.
+- NumberStepper, never a keyboard, for age/height/weight/reps.
+- Disclaimer on Landing and Result. Voice: tân binh, verb-first.
+
+**Don't**
+- Inter/Roboto/system-ui as display; Black Ops One/Stencil/Bungee.
+- "Fertility Score", "Reproductive Health Score", diagnosis copy.
+- Purple SaaS, cream+serif templates, color-only healthy/defect.
+- `<input type="number">`, skippable disclaimer modal, sub-48px icons as hit targets.
+
+Signature: dog-tag result + ammo-belt progress + brass-on-olive. If it looks like a generic quiz, restyle.
