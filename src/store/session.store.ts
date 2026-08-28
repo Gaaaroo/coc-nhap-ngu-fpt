@@ -31,6 +31,7 @@ export interface SessionState {
   setMetrics: (patch: Partial<BodyMetrics>) => void;
   setFitness: (reps: number) => void;
   answerAndAdvance: (questionId: string, optionId: string) => void;
+  quizBack: () => void;
   go: (step: FlowStep) => void;
   goBack: () => void;
   start: () => void;
@@ -96,13 +97,20 @@ export const useSession = create<SessionState>()(
       setFitness: (reps) => set({ fitness: { reps } }),
       answerAndAdvance: (questionId, optionId) => {
         const answers = { ...get().answers, [questionId]: optionId };
-        const nextIndex = get().quizIndex + 1;
-        if (nextIndex >= questions.length) {
-          set({ answers, quizIndex: nextIndex });
-          get().finishQuiz();
+        const last = get().quizIndex >= questions.length - 1;
+        if (last) {
+          set({ answers });
           return;
         }
-        set({ answers, quizIndex: nextIndex });
+        set({ answers, quizIndex: get().quizIndex + 1 });
+      },
+      quizBack: () => {
+        const index = get().quizIndex;
+        if (index <= 0) {
+          get().goBack();
+          return;
+        }
+        set({ quizIndex: index - 1 });
       },
       go: (step) => {
         const s = get();
@@ -190,6 +198,10 @@ export const useSession = create<SessionState>()(
         }
         if (state.step === 'avatarUnlock' && state.knowledgeCompleted) {
           state.step = 'avatarUpload';
+        }
+        if (state.result && (state.result.scores == null || state.result.overallTier == null)) {
+          state.result = null;
+          state.step = 'landing';
         }
       },
     },

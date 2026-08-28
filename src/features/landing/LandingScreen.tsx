@@ -23,7 +23,6 @@ export function LandingScreen() {
         {copy.tagline}
       </p>
       <p className="mt-5 text-base leading-relaxed text-ink">{copy.landing.intro}</p>
-      <p className="mt-3 text-sm leading-relaxed text-ink-muted">{copy.landing.noAccount}</p>
       <ol className="mt-5 flex items-stretch gap-0 border border-outline bg-surface shadow-[inset_0_1px_0_var(--color-highlight)]">
         {copy.landing.beats.map((beat, i) => (
           <li

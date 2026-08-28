@@ -1,8 +1,7 @@
 import { copy } from '../../config/copy.config';
-import { scoringConfig } from '../../config/scoring.config';
 import { roundBmiDisplay } from '../../domain/bmi';
-import { LIFESTYLE_GROUPS } from '../../domain/types';
-import type { LifestyleGroup, ScoreResult } from '../../domain/types';
+import { SCORE_GROUPS } from '../../domain/types';
+import type { ScoreGroup, ScoreResult } from '../../domain/types';
 
 interface Props {
   result: ScoreResult;
@@ -20,7 +19,7 @@ function Pip({ kind }: { kind: 'healthy' | 'defect' }) {
         kind === 'healthy' ? 'bg-healthy' : 'bg-defect'
       }`}
     >
-      {kind === 'healthy' ? '+' : '!'}
+      {kind === 'healthy' ? '✓' : '!'}
     </span>
   );
 }
@@ -48,7 +47,7 @@ function GroupLine({
   score,
   mark,
 }: {
-  id: LifestyleGroup;
+  id: ScoreGroup;
   score: number;
   mark: 'healthy' | 'defect' | null;
 }) {
@@ -73,12 +72,7 @@ function GroupLine({
 
 export function DogTagCard({ result }: Props) {
   const total = round0(result.total);
-  const lifestyle = LIFESTYLE_GROUPS.reduce(
-    (sum, g) => sum + result.groups[g].normalized * scoringConfig.groupWeights[g],
-    0,
-  );
-
-  const markOf = (g: LifestyleGroup): 'healthy' | 'defect' | null => {
+  const markOf = (g: ScoreGroup): 'healthy' | 'defect' | null => {
     if (result.strengths.includes(g)) return 'healthy';
     if (result.weaknesses.includes(g)) return 'defect';
     return null;
@@ -101,6 +95,10 @@ export function DogTagCard({ result }: Props) {
         <span className="text-[48px] tracking-wide text-brass">{total}</span>
         <span className="text-base tracking-wide text-ink-muted">{copy.result.of100}</span>
       </p>
+      <p className="mt-2 inline-flex items-center border border-brass bg-surface px-2 py-1 font-oswald text-[12px] tracking-[0.14em] text-brass uppercase">
+        {copy.result.tiers[result.overallTier]}
+      </p>
+      <p className="mt-1 text-[12px] text-ink-muted">{copy.result.overallHint}</p>
       <p className="mt-2 text-sm leading-snug text-ink-muted">{copy.result.mix}</p>
       <p className="mt-2 text-sm leading-relaxed text-ink">
         {copy.result.summary(
@@ -119,16 +117,12 @@ export function DogTagCard({ result }: Props) {
         />
         <Metric
           label={copy.result.strength}
-          value={String(result.fitness.reps)}
-          note={`${copy.fitness.repsUnit} · ${result.fitness.label}`}
+          value={String(result.physicalScore)}
+          note={`${result.fitness.reps} ${copy.fitness.repsUnit} · ${result.fitness.label}`}
         />
       </div>
       <p className="mt-2 text-[13px] leading-snug text-ink-muted">
-        {copy.result.converted(
-          round0(result.bmi.score),
-          round0(result.fitness.score),
-          round0(lifestyle),
-        )}
+        {copy.result.converted(result.physicalScore)}
       </p>
 
       <div className="mt-4 grid grid-cols-2 gap-3 border-t border-outline pt-3">
@@ -143,7 +137,7 @@ export function DogTagCard({ result }: Props) {
               <li key={g} className="flex justify-between gap-2">
                 <span>{copy.groups[g]}</span>
                 <span className="font-oswald tabular-nums text-healthy">
-                  {round0(result.groups[g].normalized)}
+                  {round0(result.scores[g])}
                 </span>
               </li>
             ))}
@@ -160,12 +154,13 @@ export function DogTagCard({ result }: Props) {
               <li key={g} className="flex justify-between gap-2">
                 <span>{copy.groups[g]}</span>
                 <span className="font-oswald tabular-nums text-defect">
-                  {round0(result.groups[g].normalized)}
+                  {round0(result.scores[g])}
                 </span>
               </li>
             ))}
           </ul>
         </div>
+        <p className="col-span-2 text-[12px] text-ink-muted">{copy.result.highlightHint}</p>
       </div>
 
       <div className="mt-4 border-t border-outline pt-3">
@@ -173,13 +168,8 @@ export function DogTagCard({ result }: Props) {
           {copy.result.allGroups}
         </p>
         <ul className="space-y-2">
-          {LIFESTYLE_GROUPS.map((g) => (
-            <GroupLine
-              key={g}
-              id={g}
-              score={result.groups[g].normalized}
-              mark={markOf(g)}
-            />
+          {SCORE_GROUPS.map((g) => (
+            <GroupLine key={g} id={g} score={result.scores[g]} mark={markOf(g)} />
           ))}
         </ul>
       </div>

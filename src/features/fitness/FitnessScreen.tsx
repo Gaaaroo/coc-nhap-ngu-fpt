@@ -20,7 +20,13 @@ export function FitnessScreen() {
       onBack={goBack}
       footer={<Button onClick={() => go('quiz')}>{copy.cta.continue}</Button>}
     >
-      <p className="plate px-3 py-3 text-base leading-relaxed text-ink">{copy.fitness.guide}</p>
+      <div className="flex items-center justify-between gap-3 border border-outline bg-surface px-3 py-3 shadow-[inset_0_1px_0_var(--color-highlight)]">
+        <p className="font-oswald text-sm tracking-[0.12em] text-brass uppercase">
+          {copy.fitness.bar(kg)}
+        </p>
+        <p className="font-oswald text-2xl tabular-nums tracking-wide text-ink">{copy.fitness.timer}</p>
+      </div>
+      <p className="plate mt-3 px-3 py-3 text-base leading-relaxed text-ink">{copy.fitness.guide}</p>
       <div className="mt-4">
         <NumberStepper
           label={copy.fitness.reps}

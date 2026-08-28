@@ -1,40 +1,46 @@
 import type { ScoringConfig } from '../domain/types';
 
 /**
- * [CHỜ FSD] Benchmark vận hành — chưa phải chuẩn y khoa.
+ * Benchmark vận hành theo FUNCTIONAL_SPECIFICATION.md — chưa phải chuẩn y khoa.
  * Đổi số tại đây, không sửa logic trong src/domain.
  */
 export const scoringConfig: ScoringConfig = {
   bmiBands: [
-    { band: 'under', min: 0, max: 18.5, score: 62, label: 'Hơi nhẹ cân' },
-    { band: 'fit', min: 18.5, max: 25, score: 100, label: 'Cân đối' },
-    { band: 'high', min: 25, max: 30, score: 72, label: 'Hơi dư cân' },
-    { band: 'veryHigh', min: 30, max: 100, score: 48, label: 'Dư cân' },
+    { band: 'under', min: 0, max: 18.5, score: 50, label: 'Thiếu cân' },
+    { band: 'fit', min: 18.5, max: 23, score: 100, label: 'Bình thường' },
+    { band: 'high', min: 23, max: 25, score: 75, label: 'Thừa cân' },
+    { band: 'obese1', min: 25, max: 30, score: 50, label: 'Béo phì độ I' },
+    { band: 'obese2', min: 30, max: 100, score: 30, label: 'Béo phì độ II' },
   ],
   fitnessBands: {
     female: [
-      { band: 'low', min: 0, max: 6, score: 40, label: 'Mới khởi động' },
-      { band: 'fair', min: 6, max: 12, score: 68, label: 'Khá' },
-      { band: 'solid', min: 12, max: 20, score: 88, label: 'Tốt' },
-      { band: 'peak', min: 20, max: 999, score: 100, label: 'Rất tốt' },
+      { band: 'low', min: 0, max: 5, score: 30, label: '0–4 lần' },
+      { band: 'fair', min: 5, max: 9, score: 60, label: '5–8 lần' },
+      { band: 'solid', min: 9, max: 13, score: 80, label: '9–12 lần' },
+      { band: 'peak', min: 13, max: 999, score: 100, label: '13 lần trở lên' },
     ],
     male: [
-      { band: 'low', min: 0, max: 8, score: 40, label: 'Mới khởi động' },
-      { band: 'fair', min: 8, max: 16, score: 68, label: 'Khá' },
-      { band: 'solid', min: 16, max: 26, score: 88, label: 'Tốt' },
-      { band: 'peak', min: 26, max: 999, score: 100, label: 'Rất tốt' },
+      { band: 'low', min: 0, max: 6, score: 30, label: '0–5 lần' },
+      { band: 'fair', min: 6, max: 11, score: 60, label: '6–10 lần' },
+      { band: 'solid', min: 11, max: 16, score: 80, label: '11–15 lần' },
+      { band: 'peak', min: 16, max: 999, score: 100, label: '16 lần trở lên' },
     ],
   },
-  groupWeights: {
-    sleep: 0.2,
-    nutrition: 0.2,
-    hydration: 0.2,
+  physicalWeights: {
+    bmi: 0.4,
+    fitness: 0.6,
+  },
+  totalWeights: {
+    physical: 0.2,
+    sleep: 0.15,
+    nutrition: 0.15,
+    hydration: 0.1,
     activity: 0.2,
     mental: 0.2,
   },
-  componentWeights: {
-    bmi: 0.2,
-    fitness: 0.2,
-    lifestyle: 0.6,
-  },
+  overallTiers: [
+    { tier: 'healthy', min: 75, label: 'Điểm Khỏe' },
+    { tier: 'stable', min: 50, label: 'Ổn định' },
+    { tier: 'defect', min: 0, label: 'Điểm Khuyết' },
+  ],
 };

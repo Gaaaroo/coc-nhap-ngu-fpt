@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
@@ -8,12 +7,6 @@ import { useSession } from '../../store/session.store';
 export function UnlockScreen() {
   const reduce = useReducedMotion();
   const go = useSession((s) => s.go);
-
-  useEffect(() => {
-    const ms = reduce ? 200 : 900;
-    const id = window.setTimeout(() => go('avatarUpload'), ms);
-    return () => window.clearTimeout(id);
-  }, [go, reduce]);
 
   return (
     <ScreenShell

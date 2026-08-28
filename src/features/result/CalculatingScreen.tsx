@@ -11,7 +11,7 @@ export function CalculatingScreen() {
 
   useEffect(() => {
     track('step_calculating');
-    const ms = reduce ? 200 : 1600;
+    const ms = reduce ? 200 : 2000;
     const id = window.setTimeout(() => {
       go('result');
       track('step_result');

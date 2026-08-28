@@ -1,4 +1,4 @@
-import type { LifestyleGroup } from '../domain/types';
+import type { OverallTier, ScoreGroup } from '../domain/types';
 
 export const copy = {
   event: 'CÓC NHẬP NGŨ 2026',
@@ -17,17 +17,17 @@ export const copy = {
   },
 
   groups: {
+    physical: 'Thể lực',
     sleep: 'Giấc ngủ',
     nutrition: 'Dinh dưỡng',
     hydration: 'Uống nước',
     activity: 'Vận động',
     mental: 'Tinh thần',
-  } satisfies Record<LifestyleGroup, string>,
+  } satisfies Record<ScoreGroup, string>,
 
   landing: {
     intro:
       'Ba phút thôi: đo vài chỉ số, gập thanh lò xo, trả lời nhanh mấy câu về thói quen hằng ngày. Xong là biết mình đang khỏe ở đâu, hụt ở đâu — và nhận một khung ảnh riêng.',
-    noAccount: 'Không cần đăng nhập. Không lưu lại gì sau khi bạn đóng trang.',
     beats: [
       { n: '01', label: 'Chỉ số' },
       { n: '02', label: 'Lò xo' },
@@ -37,12 +37,12 @@ export const copy = {
 
   intake: {
     eyebrow: 'Bước 1/3',
-    title: 'Vài chỉ số cơ bản',
+    title: 'Hồ sơ tân binh',
     female: 'Nữ',
     male: 'Nam',
     femaleHint: 'Thanh lò xo 20kg',
     maleHint: 'Thanh lò xo 30kg',
-    needGender: 'Chọn nam hoặc nữ để đi tiếp',
+    needGender: 'Vui lòng chọn giới tính.',
     age: 'Tuổi',
     height: 'Chiều cao',
     weight: 'Cân nặng',
@@ -51,6 +51,8 @@ export const copy = {
   fitness: {
     eyebrow: 'Bước 2/3',
     title: 'Gập thanh lò xo',
+    bar: (kg: number) => `Thanh tạ ${kg}kg`,
+    timer: '20 giây',
     guide:
       'Bạn gập thanh lò xo trong 20 giây, tình nguyện viên đếm giúp. Xong thì bấm +/− hoặc bấm vào số rồi gõ.',
     reps: 'Số lần gập',
@@ -59,40 +61,48 @@ export const copy = {
 
   quiz: {
     eyebrow: 'Bước 3/3',
-    title: 'Thói quen hằng ngày',
+    title: 'Kiểm tra lối sống',
     counter: (current: number, total: number) => `Câu ${current}/${total}`,
+    needAll: 'Vui lòng trả lời tất cả câu hỏi.',
   },
 
   calculating: {
     eyebrow: 'Chờ một chút',
-    title: 'Đang tổng hợp',
-    stamp: 'ĐANG CHẤM',
+    title: 'Đang phân tích hồ sơ tân binh...',
+    stamp: 'ĐANG PHÂN TÍCH',
   },
 
   result: {
-    eyebrow: 'Kết quả',
-    title: 'Khỏe ở đâu, hụt ở đâu',
-    chartLabel: 'Biểu đồ năm nhóm thói quen',
+    eyebrow: 'Hồ sơ sức khỏe',
+    title: 'Hồ sơ tân binh',
     of100: '/100',
-    mix: 'Gồm hình thể 20%, thể lực 20% và thói quen 60%.',
-    converted: (body: number, strength: number, lifestyle: number) =>
-      `Điểm quy đổi: hình thể ${body}, thể lực ${strength}, thói quen ${lifestyle}.`,
+    overallHint: 'Xếp hạng tổng thể',
+    highlightHint: 'Nhóm nổi bật / Nhóm cần cải thiện',
+    chartLabel: 'Sáu nhóm chỉ số',
+    mix: 'Gồm thể lực 20% và năm nhóm lối sống 80%.',
+    converted: (physical: number) => `Điểm thể lực (BMI 40% + gập thanh 60%): ${physical}.`,
     healthyHint: 'Hai nhóm cao nhất',
     defectHint: 'Hai nhóm thấp nhất',
-    allGroups: 'Năm nhóm thói quen',
+    allGroups: 'Sáu nhóm chỉ số',
     body: 'Hình thể',
     strength: 'Thể lực',
     bmiUnit: 'BMI',
     summary: (s1: string, s2: string, w1: string, w2: string) =>
       `Cao hơn ở ${s1} và ${s2}. Thấp hơn ở ${w1} và ${w2}.`,
+    tiers: {
+      healthy: 'Điểm Khỏe',
+      stable: 'Ổn định',
+      defect: 'Điểm Khuyết',
+    } satisfies Record<OverallTier, string>,
   },
 
   knowledge: {
-    eyebrow: 'Gợi ý cải thiện',
+    eyebrow: 'Mật mã kiến thức',
     counter: (current: number, total: number) => `Thẻ ${current}/${total}`,
     nextUp: 'Tiếp theo',
     prev: 'Trước',
     next: 'Tiếp',
+    note: 'Nội dung mang tính giáo dục chung, không chẩn đoán và không kết luận về khả năng sinh sản của bạn.',
   },
 
   unlock: {
@@ -103,23 +113,27 @@ export const copy = {
 
   upload: {
     eyebrow: 'Ảnh đại diện',
-    title: 'Chọn một tấm ảnh',
+    title: 'Tải ảnh lên',
     dropZone: 'Chạm để chọn ảnh có sẵn trong máy',
+    camera: 'Chụp ảnh',
+    library: 'Chọn từ thư viện',
     privacy: 'Ảnh được xử lý ngay trên máy bạn, không gửi đi đâu cả.',
     reading: 'Đang mở ảnh…',
-    error: 'Không mở được ảnh này. Bạn chọn một tấm JPG hoặc PNG khác nhé.',
+    error: 'Định dạng ảnh không hỗ trợ. Vui lòng chọn file JPG, PNG hoặc WEBP.',
+    tooLarge: 'Ảnh vượt quá dung lượng cho phép (tối đa 10MB).',
   },
 
   crop: {
-    eyebrow: 'Canh ảnh',
+    eyebrow: 'Ghép avatar',
     title: 'Kéo cho vừa khung',
     zoom: 'Phóng to',
+    reset: 'Đặt lại',
     missing: 'Chưa có ảnh',
     missingBody: 'Bạn quay lại chọn ảnh trước đã.',
   },
 
   preview: {
-    eyebrow: 'Hoàn tất',
+    eyebrow: 'Hoàn thành',
     title: 'Ảnh của bạn',
     alt: 'Ảnh đại diện đã lồng khung tân binh',
     composing: 'Đang lồng khung…',
@@ -134,6 +148,8 @@ export const copy = {
     body: 'Lâu rồi không thấy bạn bấm gì. Lượt chơi sẽ tự xoá để nhường cho người sau.',
   },
 
+  sessionReset: 'Phiên chơi đã được làm mới. Vui lòng bắt đầu lại.',
+
   done: {
     eyebrow: 'Hết lượt',
     title: 'Xong rồi!',
@@ -141,19 +157,21 @@ export const copy = {
   },
 
   cta: {
-    start: 'Bắt đầu',
+    start: 'Bắt đầu nhập ngũ',
     continue: 'Tiếp tục',
-    readTips: 'Xem cách cải thiện',
-    unlockFrame: 'Mở khung ảnh',
-    makeAvatar: 'Làm ảnh đại diện',
+    seeResult: 'Xem kết quả',
+    readTips: 'Xem mật mã kiến thức',
+    unlockFrame: 'Mở khóa avatar',
+    makeAvatar: 'Tải ảnh lên',
     pickPhoto: 'Chọn ảnh',
-    usePhoto: 'Dùng ảnh này',
+    composeAvatar: 'Ghép avatar',
+    usePhoto: 'Xác nhận',
     share: 'Chia sẻ',
-    download: 'Tải ảnh về',
+    download: 'Tải về',
     finish: 'Xong',
     stay: 'Tôi vẫn đang chơi',
     reset: 'Nhường lượt cho người sau',
-    newRound: 'Bắt đầu lượt mới',
+    newRound: 'Chơi lại',
     back: 'Quay lại',
     skip: 'Về đầu',
   },
