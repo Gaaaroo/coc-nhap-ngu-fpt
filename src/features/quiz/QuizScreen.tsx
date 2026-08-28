@@ -45,9 +45,14 @@ export function QuizScreen() {
       }}
       footer={
         last ? (
-          <Button disabled={!selected} onClick={finishQuiz}>
-            {copy.cta.seeResult}
-          </Button>
+          <>
+            <Button disabled={!selected} onClick={finishQuiz}>
+              {copy.cta.seeResult}
+            </Button>
+            {!selected ? (
+              <p className="mt-2 text-center text-sm text-danger">{copy.quiz.needAll}</p>
+            ) : null}
+          </>
         ) : undefined
       }
     >

@@ -6,6 +6,7 @@ import { useSession } from '../../store/session.store';
 
 export function LandingScreen() {
   const start = useSession((s) => s.start);
+  const sessionNotice = useSession((s) => s.sessionNotice);
 
   return (
     <ScreenShell hideBrand hideSkip footer={<Button onClick={start}>{copy.cta.start}</Button>}>
@@ -16,6 +17,11 @@ export function LandingScreen() {
         />
         <p className="font-oswald text-[11px] tracking-[0.28em] text-brass">{copy.event}</p>
       </div>
+      {sessionNotice ? (
+        <p className="mt-4 border border-danger bg-disclaimer-bg px-3 py-2 text-sm leading-relaxed text-danger">
+          {sessionNotice}
+        </p>
+      ) : null}
       <h1 className="mt-5 font-oswald text-[38px] font-bold leading-[0.95] tracking-[0.04em] text-ink">
         {copy.codeName}
       </h1>

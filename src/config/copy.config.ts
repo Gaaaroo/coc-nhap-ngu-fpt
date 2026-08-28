@@ -148,6 +148,14 @@ export const copy = {
     body: 'Lâu rồi không thấy bạn bấm gì. Lượt chơi sẽ tự xoá để nhường cho người sau.',
   },
 
+  errors: {
+    required: 'Vui lòng nhập đầy đủ thông tin.',
+    digits: 'Chỉ được nhập số.',
+    ageRange: 'Vui lòng nhập tuổi từ 15–60.',
+    heightRange: 'Vui lòng nhập chiều cao từ 100–230cm.',
+    weightRange: 'Vui lòng nhập cân nặng từ 30–200kg.',
+  },
+
   sessionReset: 'Phiên chơi đã được làm mới. Vui lòng bắt đầu lại.',
 
   done: {

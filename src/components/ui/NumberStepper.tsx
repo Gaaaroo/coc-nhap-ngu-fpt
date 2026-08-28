@@ -3,11 +3,13 @@ import { useEffect, useId, useRef, useState } from 'react';
 interface Props {
   label: string;
   unit: string;
-  value: number;
+  value: number | null;
   min: number;
   max: number;
   step?: number;
-  onChange: (value: number) => void;
+  error?: string | null;
+  onChange: (value: number | null) => void;
+  onNonNumeric?: () => void;
 }
 
 function digitsOnly(raw: string): string {
@@ -25,7 +27,9 @@ export function NumberStepper({
   min,
   max,
   step = 1,
+  error,
   onChange,
+  onNonNumeric,
 }: Props) {
   const inputId = useId();
   const valueRef = useRef(value);
@@ -33,31 +37,41 @@ export function NumberStepper({
   const hold = useRef<number | null>(null);
   const repeat = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [draft, setDraft] = useState(String(value));
+  const [draft, setDraft] = useState(value == null ? '' : String(value));
   const [focused, setFocused] = useState(false);
-  const maxDigits = String(max).length;
+  const maxDigits = String(max).length + 1;
+  const invalid = Boolean(error);
 
   useEffect(() => {
-    if (!focused) setDraft(String(value));
+    if (!focused) setDraft(value == null ? '' : String(value));
   }, [value, focused]);
 
   const commit = (raw: string) => {
-    const parsed = Number.parseInt(digitsOnly(raw), 10);
-    if (Number.isNaN(parsed)) {
-      setDraft(String(valueRef.current));
+    const cleaned = digitsOnly(raw);
+    if (cleaned.length === 0) {
+      valueRef.current = null;
+      setDraft('');
+      onChange(null);
       return;
     }
-    const next = clamp(parsed, min, max);
-    valueRef.current = next;
-    setDraft(String(next));
-    onChange(next);
+    const parsed = Number.parseInt(cleaned, 10);
+    if (Number.isNaN(parsed)) {
+      valueRef.current = null;
+      setDraft('');
+      onChange(null);
+      return;
+    }
+    valueRef.current = parsed;
+    setDraft(String(parsed));
+    onChange(parsed);
   };
 
   const nudge = (dir: 1 | -1) => {
     if (focused) {
       inputRef.current?.blur();
     }
-    const next = clamp(valueRef.current + dir * step, min, max);
+    const base = valueRef.current == null ? (dir === 1 ? min - step : min) : valueRef.current;
+    const next = clamp(base + dir * step, min, max);
     valueRef.current = next;
     setDraft(String(next));
     onChange(next);
@@ -77,11 +91,15 @@ export function NumberStepper({
     repeat.current = null;
   };
 
-  const atMin = value <= min;
-  const atMax = value >= max;
+  const atMin = value != null && value <= min;
+  const atMax = value != null && value >= max;
 
   return (
-    <div className="rounded-[4px] border border-outline bg-surface p-3 shadow-[inset_0_1px_0_var(--color-highlight)]">
+    <div
+      className={`rounded-[4px] border bg-surface p-3 shadow-[inset_0_1px_0_var(--color-highlight)] ${
+        invalid ? 'border-danger' : 'border-outline'
+      }`}
+    >
       <label
         htmlFor={inputId}
         className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase"
@@ -102,7 +120,11 @@ export function NumberStepper({
         >
           −
         </button>
-        <div className="flex min-h-12 min-w-0 flex-1 items-baseline justify-center gap-1 rounded-[4px] border border-outline bg-bg px-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.28)] focus-within:border-brass focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brass">
+        <div
+          className={`flex min-h-12 min-w-0 flex-1 items-baseline justify-center gap-1 rounded-[4px] border bg-bg px-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.28)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brass ${
+            invalid ? 'border-danger' : 'border-outline focus-within:border-brass'
+          }`}
+        >
           <input
             ref={inputRef}
             id={inputId}
@@ -114,18 +136,31 @@ export function NumberStepper({
             autoCorrect="off"
             spellCheck={false}
             role="spinbutton"
+            aria-invalid={invalid}
             aria-live="polite"
             aria-valuemin={min}
             aria-valuemax={max}
-            aria-valuenow={value}
+            aria-valuenow={value ?? undefined}
             value={draft}
             onFocus={(e) => {
               setFocused(true);
               e.currentTarget.select();
             }}
             onChange={(e) => {
-              const next = digitsOnly(e.target.value).slice(0, maxDigits);
+              const raw = e.target.value;
+              if (raw.length > 0 && digitsOnly(raw) !== raw) onNonNumeric?.();
+              const next = digitsOnly(raw).slice(0, maxDigits);
               setDraft(next);
+              if (next.length === 0) {
+                valueRef.current = null;
+                onChange(null);
+                return;
+              }
+              const parsed = Number.parseInt(next, 10);
+              if (!Number.isNaN(parsed)) {
+                valueRef.current = parsed;
+                onChange(parsed);
+              }
             }}
             onBlur={(e) => {
               setFocused(false);
@@ -155,6 +190,7 @@ export function NumberStepper({
           +
         </button>
       </div>
+      {error ? <p className="mt-2 text-sm text-danger">{error}</p> : null}
     </div>
   );
 }

@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { calcBmi, roundBmiDisplay } from '../../domain/bmi';
 import { METRIC_LIMITS } from '../../domain/types';
+import { hasIntakeErrors, validateIntake, type IntakeErrors } from '../../domain/validate';
 import { scoringConfig } from '../../config/scoring.config';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
@@ -8,17 +10,45 @@ import { OptionCard } from '../../components/ui/OptionCard';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { useSession } from '../../store/session.store';
 
+const EMPTY_ERRORS: IntakeErrors = {
+  gender: null,
+  age: null,
+  height: null,
+  weight: null,
+};
+
 export function IntakeScreen() {
   const metrics = useSession((s) => s.metrics);
   const setMetrics = useSession((s) => s.setMetrics);
   const go = useSession((s) => s.go);
   const goBack = useSession((s) => s.goBack);
+  const [errors, setErrors] = useState<IntakeErrors>(EMPTY_ERRORS);
+  const [digitHint, setDigitHint] = useState<string | null>(null);
 
-  const age = metrics.age ?? METRIC_LIMITS.age.default;
-  const height = metrics.heightCm ?? METRIC_LIMITS.heightCm.default;
-  const weight = metrics.weightKg ?? METRIC_LIMITS.weightKg.default;
+  useEffect(() => {
+    const current = useSession.getState().metrics;
+    if (current.age != null && current.heightCm != null && current.weightKg != null) return;
+    setMetrics({
+      age: current.age ?? METRIC_LIMITS.age.default,
+      heightCm: current.heightCm ?? METRIC_LIMITS.heightCm.default,
+      weightKg: current.weightKg ?? METRIC_LIMITS.weightKg.default,
+    });
+  }, [setMetrics]);
+
+  const age = metrics.age ?? null;
+  const height = metrics.heightCm ?? null;
+  const weight = metrics.weightKg ?? null;
   const gender = metrics.gender;
-  const bmi = calcBmi({ heightCm: height, weightKg: weight }, scoringConfig);
+  const canBmi = height != null && weight != null && height > 0;
+  const bmi = canBmi ? calcBmi({ heightCm: height, weightKg: weight ?? 0 }, scoringConfig) : null;
+
+  const submit = () => {
+    const next = validateIntake(metrics);
+    setErrors(next);
+    setDigitHint(null);
+    if (hasIntakeErrors(next)) return;
+    go('fitness');
+  };
 
   return (
     <ScreenShell
@@ -27,21 +57,33 @@ export function IntakeScreen() {
       onBack={goBack}
       footer={
         <>
-          <Button disabled={!gender} onClick={() => gender && go('fitness')}>
-            {copy.cta.continue}
-          </Button>
-          {!gender ? (
-            <p className="mt-2 text-center text-sm text-ink-muted">{copy.intake.needGender}</p>
+          <Button onClick={submit}>{copy.cta.continue}</Button>
+          {errors.gender ? (
+            <p className="mt-2 text-center text-sm text-danger">{errors.gender}</p>
           ) : null}
         </>
       }
     >
       <div className="grid grid-cols-2 gap-2">
-        <OptionCard selected={gender === 'female'} onSelect={() => setMetrics({ gender: 'female' })}>
+        <OptionCard
+          invalid={Boolean(errors.gender)}
+          selected={gender === 'female'}
+          onSelect={() => {
+            setMetrics({ gender: 'female' });
+            setErrors((e) => ({ ...e, gender: null }));
+          }}
+        >
           <span className="block font-oswald tracking-wide">{copy.intake.female}</span>
           <span className="mt-1 block text-sm text-ink-muted">{copy.intake.femaleHint}</span>
         </OptionCard>
-        <OptionCard selected={gender === 'male'} onSelect={() => setMetrics({ gender: 'male' })}>
+        <OptionCard
+          invalid={Boolean(errors.gender)}
+          selected={gender === 'male'}
+          onSelect={() => {
+            setMetrics({ gender: 'male' });
+            setErrors((e) => ({ ...e, gender: null }));
+          }}
+        >
           <span className="block font-oswald tracking-wide">{copy.intake.male}</span>
           <span className="mt-1 block text-sm text-ink-muted">{copy.intake.maleHint}</span>
         </OptionCard>
@@ -53,7 +95,13 @@ export function IntakeScreen() {
           value={age}
           min={METRIC_LIMITS.age.min}
           max={METRIC_LIMITS.age.max}
-          onChange={(v) => setMetrics({ age: v })}
+          error={errors.age}
+          onNonNumeric={() => setDigitHint(copy.errors.digits)}
+          onChange={(v) => {
+            setMetrics({ age: v ?? undefined });
+            setErrors((e) => ({ ...e, age: null }));
+            setDigitHint(null);
+          }}
         />
         <NumberStepper
           label={copy.intake.height}
@@ -61,7 +109,13 @@ export function IntakeScreen() {
           value={height}
           min={METRIC_LIMITS.heightCm.min}
           max={METRIC_LIMITS.heightCm.max}
-          onChange={(v) => setMetrics({ heightCm: v })}
+          error={errors.height}
+          onNonNumeric={() => setDigitHint(copy.errors.digits)}
+          onChange={(v) => {
+            setMetrics({ heightCm: v ?? undefined });
+            setErrors((e) => ({ ...e, height: null }));
+            setDigitHint(null);
+          }}
         />
         <NumberStepper
           label={copy.intake.weight}
@@ -69,16 +123,27 @@ export function IntakeScreen() {
           value={weight}
           min={METRIC_LIMITS.weightKg.min}
           max={METRIC_LIMITS.weightKg.max}
-          onChange={(v) => setMetrics({ weightKg: v })}
+          error={errors.weight}
+          onNonNumeric={() => setDigitHint(copy.errors.digits)}
+          onChange={(v) => {
+            setMetrics({ weightKg: v ?? undefined });
+            setErrors((e) => ({ ...e, weight: null }));
+            setDigitHint(null);
+          }}
         />
       </div>
-      <div className="plate-brass mt-4 p-3">
-        <p className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase">
-          {copy.bmiLabel}
-        </p>
-        <p className="mt-1 font-oswald text-4xl leading-none text-brass">{roundBmiDisplay(bmi.value)}</p>
-        <p className="mt-1 text-sm text-ink-muted">{bmi.label}</p>
-      </div>
+      {digitHint ? <p className="mt-2 text-sm text-danger">{digitHint}</p> : null}
+      {bmi ? (
+        <div className="plate-brass mt-4 p-3">
+          <p className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase">
+            {copy.bmiLabel}
+          </p>
+          <p className="mt-1 font-oswald text-4xl leading-none text-brass">
+            {roundBmiDisplay(bmi.value)}
+          </p>
+          <p className="mt-1 text-sm text-ink-muted">{bmi.label}</p>
+        </div>
+      ) : null}
     </ScreenShell>
   );
 }
