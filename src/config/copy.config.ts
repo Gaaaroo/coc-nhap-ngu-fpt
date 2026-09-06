@@ -98,7 +98,6 @@ export const copy = {
 
   knowledge: {
     eyebrow: 'Mật mã kiến thức',
-    forDefects: 'Đúng hai điểm khuyết vừa chấm — đọc rồi kéo lên.',
     counter: (current: number, total: number) => `Thẻ ${current}/${total}`,
     nextUp: 'Tiếp theo',
     prev: 'Trước',

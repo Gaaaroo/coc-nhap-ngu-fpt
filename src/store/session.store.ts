@@ -124,6 +124,7 @@ export const useSession = create<SessionState>()((set, get) => ({
     const last = get().quizIndex >= questions.length - 1;
     if (last) {
       set({ answers });
+      get().finishQuiz();
       return;
     }
     set({ answers, quizIndex: get().quizIndex + 1 });

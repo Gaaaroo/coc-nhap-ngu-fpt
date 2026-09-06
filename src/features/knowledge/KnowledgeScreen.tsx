@@ -25,30 +25,31 @@ export function KnowledgeScreen() {
     <ScreenShell
       eyebrow={copy.knowledge.eyebrow}
       title={card.title}
-      onBack={safeIndex === 0 ? goBack : undefined}
+      onBack={
+        safeIndex === 0 ? goBack : () => setKnowledgeIndex(Math.max(0, safeIndex - 1))
+      }
       progress={{
         value: safeIndex + 1,
         max: cards.length,
         label: copy.knowledge.counter(safeIndex + 1, cards.length),
       }}
       footer={
-        last ? (
-          <Button onClick={completeKnowledge}>{copy.cta.unlockFrame}</Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button
-              variant="secondary"
-              disabled={safeIndex === 0}
-              onClick={() => setKnowledgeIndex(Math.max(0, safeIndex - 1))}
-            >
-              {copy.knowledge.prev}
-            </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="secondary"
+            disabled={safeIndex === 0}
+            onClick={() => setKnowledgeIndex(Math.max(0, safeIndex - 1))}
+          >
+            {copy.knowledge.prev}
+          </Button>
+          {last ? (
+            <Button onClick={completeKnowledge}>{copy.cta.unlockFrame}</Button>
+          ) : (
             <Button onClick={() => setKnowledgeIndex(safeIndex + 1)}>{copy.knowledge.next}</Button>
-          </div>
-        )
+          )}
+        </div>
       }
     >
-      <p className="mb-3 text-sm leading-snug text-ink-muted">{copy.knowledge.forDefects}</p>
       <article className="plate relative p-4">
         <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
           {copy.groups[card.group]}
