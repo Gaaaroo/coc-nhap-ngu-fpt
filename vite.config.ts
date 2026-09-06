@@ -9,7 +9,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
+      injectRegister: null,
       includeAssets: ['icons/icon.svg'],
       manifest: {
         name: 'Mật mã số 4 — Cóc Nhập Ngũ 2026',
@@ -26,6 +27,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,woff2,png}'],
+        cleanupOutdatedCaches: true,
       },
     }),
   ],
