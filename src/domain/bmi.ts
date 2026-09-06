@@ -5,15 +5,20 @@ export function bmiValue(metrics: Pick<BodyMetrics, 'heightCm' | 'weightKg'>): n
   return metrics.weightKg / (meters * meters);
 }
 
+/** BMI rounded to 1 decimal, used for display and band lookup. */
+export function roundBmi(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
 export function roundBmiDisplay(value: number): string {
-  return (Math.round(value * 10) / 10).toFixed(1);
+  return roundBmi(value).toFixed(1);
 }
 
 export function calcBmi(
   metrics: Pick<BodyMetrics, 'heightCm' | 'weightKg'>,
   cfg: ScoringConfig,
 ): { value: number; band: BmiBand; score: number; label: string } {
-  const value = bmiValue(metrics);
+  const value = roundBmi(bmiValue(metrics));
   const rule = cfg.bmiBands.find((b) => value >= b.min && value < b.max);
   if (!rule) {
     const last = cfg.bmiBands[cfg.bmiBands.length - 1];

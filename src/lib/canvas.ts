@@ -3,7 +3,7 @@ import { avatarConfig } from '../config/avatar.config';
 import { copy } from '../config/copy.config';
 
 const SIZE = avatarConfig.size;
-const MARGIN = 36;
+const MARGIN = 0;
 const BORDER = 18;
 const BAND_TOP = 104;
 const BAND_BOTTOM = 190;
@@ -53,6 +53,16 @@ async function ensureFonts(): Promise<void> {
   }
 }
 
+function clampCrop(photo: HTMLImageElement, crop: Area): Area {
+  const maxW = photo.naturalWidth || photo.width;
+  const maxH = photo.naturalHeight || photo.height;
+  const x = Math.min(Math.max(0, crop.x), Math.max(0, maxW - 1));
+  const y = Math.min(Math.max(0, crop.y), Math.max(0, maxH - 1));
+  const width = Math.min(crop.width, maxW - x);
+  const height = Math.min(crop.height, maxH - y);
+  return { x, y, width: Math.max(1, width), height: Math.max(1, height) };
+}
+
 function drawFrame(ctx: CanvasRenderingContext2D): void {
   const inner = MARGIN + BORDER;
   const innerSize = SIZE - inner * 2;
@@ -81,13 +91,14 @@ function drawFrame(ctx: CanvasRenderingContext2D): void {
   ctx.stroke();
 
   ctx.fillStyle = BRASS_DEEP;
+  const cap = 120;
   for (const [x, y] of [
-    [MARGIN, MARGIN],
-    [SIZE - MARGIN - 120, MARGIN],
-    [MARGIN, SIZE - MARGIN - BORDER],
-    [SIZE - MARGIN - 120, SIZE - MARGIN - BORDER],
+    [0, 0],
+    [SIZE - cap, 0],
+    [0, SIZE - BORDER],
+    [SIZE - cap, SIZE - BORDER],
   ]) {
-    ctx.fillRect(x, y, 120, BORDER);
+    ctx.fillRect(x, y, cap, BORDER);
   }
 
   ctx.textAlign = 'left';
@@ -117,7 +128,11 @@ export async function composeAvatar(sourceUrl: string, crop: Area): Promise<Blob
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Thiết bị không hỗ trợ xử lý ảnh.');
 
-  ctx.drawImage(photo, crop.x, crop.y, crop.width, crop.height, 0, 0, SIZE, SIZE);
+  ctx.fillStyle = '#0E120C';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  const src = clampCrop(photo, crop);
+  ctx.drawImage(photo, src.x, src.y, src.width, src.height, 0, 0, SIZE, SIZE);
 
   const overlay = avatarConfig.frameOverlayUrl
     ? await loadImage(avatarConfig.frameOverlayUrl).catch(() => null)

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { ComponentType } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { IdleOverlay } from '../components/ui/IdleOverlay';
@@ -14,6 +15,7 @@ import { CropScreen } from '../features/avatar/CropScreen';
 import { PreviewScreen } from '../features/avatar/PreviewScreen';
 import { DoneScreen } from '../features/avatar/DoneScreen';
 import { useIdleReset } from '../lib/idle';
+import { writeHistory } from '../lib/flowHistory';
 import { useSession } from '../store/session.store';
 import type { FlowStep } from '../domain/types';
 
@@ -35,9 +37,25 @@ const screens: Record<FlowStep, ComponentType> = {
 export default function App() {
   const step = useSession((s) => s.step);
   const reset = useSession((s) => s.reset);
+  const applyHistory = useSession((s) => s.applyHistory);
+  const unlockCta = useSession((s) => s.unlockCta);
+  const historyGen = useSession((s) => s.historyGen);
   const reduce = useReducedMotion();
   const { countdown, stay } = useIdleReset(reset, step !== 'landing' && step !== 'done');
   const Screen = screens[step];
+
+  useEffect(() => {
+    writeHistory('landing', historyGen, 'replace');
+    const onPop = (event: PopStateEvent) => applyHistory(event.state);
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+    // Seed history once per generation; listener always reads latest applyHistory.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [historyGen]);
+
+  useEffect(() => {
+    unlockCta();
+  }, [step, unlockCta]);
 
   return (
     <>

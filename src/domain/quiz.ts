@@ -17,11 +17,12 @@ export function calcGroupScores(
       const chosen = q.options.find((o) => o.id === answers[q.id]);
       raw += chosen?.score ?? 0;
     }
+    const count = groupQuestions.length;
     result[group] = {
       group,
       raw,
       max,
-      normalized: max === 0 ? 0 : (raw / max) * 100,
+      normalized: count === 0 ? 0 : Math.round(raw / count),
     };
   }
 

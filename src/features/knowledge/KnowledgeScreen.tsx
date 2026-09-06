@@ -51,10 +51,11 @@ export function KnowledgeScreen() {
       <p className="mb-3 text-sm leading-snug text-ink-muted">{copy.knowledge.forDefects}</p>
       <article className="plate relative p-4">
         <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
-          {copy.topics[card.group]}
+          {copy.groups[card.group]}
         </p>
         <p className="mt-3 text-base leading-relaxed text-ink">{card.body}</p>
       </article>
+      <p className="mt-3 text-sm leading-relaxed text-ink-muted">{copy.knowledge.note}</p>
       {next ? (
         <p className="plate mt-3 truncate px-3 py-2 text-sm text-ink-muted">
           <span className="mr-2 font-oswald tracking-[0.12em] text-brass uppercase">

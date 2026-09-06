@@ -3,7 +3,8 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { scoringConfig } from '../src/config/scoring.config';
 import { questions } from '../src/config/questions.config';
-import { LIFESTYLE_GROUPS } from '../src/domain/types';
+import { knowledgeCards } from '../src/config/knowledge.config';
+import { LIFESTYLE_GROUPS, SCORE_GROUPS } from '../src/domain/types';
 
 const BANNED = [/fertility\s*score/i, /reproductive\s*health\s*score/i];
 
@@ -18,11 +19,11 @@ function walk(dir: string, acc: string[] = []): string[] {
 }
 
 describe('config integrity', () => {
-  it('component and group weights sum to 1', () => {
-    const { bmi, fitness, lifestyle } = scoringConfig.componentWeights;
-    expect(bmi + fitness + lifestyle).toBeCloseTo(1, 8);
-    const g = Object.values(scoringConfig.groupWeights).reduce((s, n) => s + n, 0);
-    expect(g).toBeCloseTo(1, 8);
+  it('physical and total weights sum to 1', () => {
+    const { bmi, fitness } = scoringConfig.physicalWeights;
+    expect(bmi + fitness).toBeCloseTo(1, 8);
+    const t = Object.values(scoringConfig.totalWeights).reduce((s, n) => s + n, 0);
+    expect(t).toBeCloseTo(1, 8);
   });
 
   it('every question belongs to a known group and has scored options', () => {
@@ -32,8 +33,13 @@ describe('config integrity', () => {
       expect(q.options.every((o) => typeof o.score === 'number')).toBe(true);
     }
     for (const g of LIFESTYLE_GROUPS) {
-      expect(questions.some((q) => q.group === g)).toBe(true);
+      expect(questions.filter((q) => q.group === g)).toHaveLength(2);
     }
+  });
+
+  it('has one knowledge card per score group', () => {
+    expect(knowledgeCards).toHaveLength(SCORE_GROUPS.length);
+    expect(knowledgeCards.map((c) => c.group)).toEqual(SCORE_GROUPS);
   });
 });
 

@@ -1,4 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useSession } from '../../store/session.store';
 
 const variants = {
   primary:
@@ -19,15 +20,23 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
-  { variant = 'primary', className = '', children, ...rest },
+  { variant = 'primary', className = '', disabled, onClick, children, ...rest },
   ref,
 ) {
+  const ctaLocked = useSession((s) => s.ctaLocked);
+  const locked = Boolean(ctaLocked && (variant === 'primary' || variant === 'danger'));
+
   return (
     <button
       ref={ref}
       type="button"
-      className={`inline-flex items-center justify-center rounded-[4px] px-4 transition-[transform,box-shadow,border-color,background-color] duration-150 enabled:active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass disabled:opacity-40 ${variants[variant]} ${className}`}
       {...rest}
+      disabled={disabled || locked}
+      onClick={(e) => {
+        if (disabled || locked) return;
+        onClick?.(e);
+      }}
+      className={`inline-flex items-center justify-center rounded-[4px] px-4 transition-[transform,box-shadow,border-color,background-color] duration-150 enabled:active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass disabled:opacity-40 ${variants[variant]} ${className}`}
     >
       {children}
     </button>

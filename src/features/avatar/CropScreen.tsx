@@ -5,18 +5,27 @@ import { Button } from '../../components/ui/Button';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { useSession } from '../../store/session.store';
 
+const DEFAULT_ZOOM = 1;
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 2;
+
 export function CropScreen() {
   const sourceImageUrl = useSession((s) => s.sourceImageUrl);
   const setCropPixels = useSession((s) => s.setCropPixels);
   const go = useSession((s) => s.go);
   const goBack = useSession((s) => s.goBack);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(DEFAULT_ZOOM);
   const [area, setArea] = useState<Area | null>(null);
 
   const onComplete = useCallback((_: Area, pixels: Area) => {
     setArea(pixels);
   }, []);
+
+  const reset = () => {
+    setCrop({ x: 0, y: 0 });
+    setZoom(DEFAULT_ZOOM);
+  };
 
   if (!sourceImageUrl) {
     return (
@@ -51,11 +60,14 @@ export function CropScreen() {
           image={sourceImageUrl}
           crop={crop}
           zoom={zoom}
+          minZoom={MIN_ZOOM}
+          maxZoom={MAX_ZOOM}
           aspect={1}
           onCropChange={setCrop}
           onZoomChange={setZoom}
           onCropComplete={onComplete}
-          objectFit="contain"
+          objectFit="cover"
+          restrictPosition
           style={{
             containerStyle: { background: '#000' },
           }}
@@ -65,14 +77,20 @@ export function CropScreen() {
         {copy.crop.zoom}
         <input
           type="range"
-          min={1}
-          max={3}
+          min={MIN_ZOOM}
+          max={MAX_ZOOM}
           step={0.05}
           value={zoom}
           onChange={(e) => setZoom(Number(e.target.value))}
           className="min-h-12 flex-1 accent-brass"
         />
+        <span className="w-12 shrink-0 text-right font-oswald tabular-nums text-brass">
+          {Math.round(zoom * 100)}%
+        </span>
       </label>
+      <Button variant="secondary" className="mt-3" onClick={reset}>
+        {copy.crop.reset}
+      </Button>
     </ScreenShell>
   );
 }
