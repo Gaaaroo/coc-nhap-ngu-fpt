@@ -1,8 +1,9 @@
 import { copy } from '../../config/copy.config';
 import { scoringConfig } from '../../config/scoring.config';
 import { roundBmiDisplay } from '../../domain/bmi';
+import { scoreOfTopic } from '../../domain/score';
 import { LIFESTYLE_GROUPS } from '../../domain/types';
-import type { LifestyleGroup, ScoreResult } from '../../domain/types';
+import type { LifestyleGroup, ScoreResult, ScoreTopic } from '../../domain/types';
 
 interface Props {
   result: ScoreResult;
@@ -40,6 +41,27 @@ function Metric({
       <p className="mt-1 font-oswald text-[28px] leading-none tracking-wide text-ink">{value}</p>
       <p className="mt-1 text-sm text-ink-muted">{note}</p>
     </div>
+  );
+}
+
+function TopicScoreLine({
+  result,
+  topic,
+  tone,
+}: {
+  result: ScoreResult;
+  topic: ScoreTopic;
+  tone: 'healthy' | 'defect';
+}) {
+  return (
+    <li className="flex justify-between gap-2">
+      <span>{copy.topics[topic]}</span>
+      <span
+        className={`font-oswald tabular-nums ${tone === 'healthy' ? 'text-healthy' : 'text-defect'}`}
+      >
+        {round0(scoreOfTopic(result, topic))}
+      </span>
+    </li>
   );
 }
 
@@ -104,10 +126,10 @@ export function DogTagCard({ result }: Props) {
       <p className="mt-2 text-sm leading-snug text-ink-muted">{copy.result.mix}</p>
       <p className="mt-2 text-sm leading-relaxed text-ink">
         {copy.result.summary(
-          copy.groups[result.strengths[0]],
-          copy.groups[result.strengths[1]],
-          copy.groups[result.weaknesses[0]],
-          copy.groups[result.weaknesses[1]],
+          copy.topics[result.strengths[0]],
+          copy.topics[result.strengths[1]],
+          copy.topics[result.weaknesses[0]],
+          copy.topics[result.weaknesses[1]],
         )}
       </p>
 
@@ -133,36 +155,24 @@ export function DogTagCard({ result }: Props) {
 
       <div className="mt-4 grid grid-cols-2 gap-3 border-t border-outline pt-3">
         <div>
-          <p className="mb-1 flex items-center font-oswald text-[11px] tracking-[0.12em] text-healthy uppercase">
+          <p className="mb-2 flex items-center font-oswald text-[11px] tracking-[0.12em] text-healthy uppercase">
             <Pip kind="healthy" />
             {copy.healthy}
           </p>
-          <p className="mb-2 text-[12px] text-ink-muted">{copy.result.healthyHint}</p>
           <ul className="space-y-1 text-sm text-ink">
-            {result.strengths.map((g) => (
-              <li key={g} className="flex justify-between gap-2">
-                <span>{copy.groups[g]}</span>
-                <span className="font-oswald tabular-nums text-healthy">
-                  {round0(result.groups[g].normalized)}
-                </span>
-              </li>
+            {result.strengths.map((topic) => (
+              <TopicScoreLine key={topic} result={result} topic={topic} tone="healthy" />
             ))}
           </ul>
         </div>
         <div>
-          <p className="mb-1 flex items-center font-oswald text-[11px] tracking-[0.12em] text-defect uppercase">
+          <p className="mb-2 flex items-center font-oswald text-[11px] tracking-[0.12em] text-defect uppercase">
             <Pip kind="defect" />
             {copy.defect}
           </p>
-          <p className="mb-2 text-[12px] text-ink-muted">{copy.result.defectHint}</p>
           <ul className="space-y-1 text-sm text-ink">
-            {result.weaknesses.map((g) => (
-              <li key={g} className="flex justify-between gap-2">
-                <span>{copy.groups[g]}</span>
-                <span className="font-oswald tabular-nums text-defect">
-                  {round0(result.groups[g].normalized)}
-                </span>
-              </li>
+            {result.weaknesses.map((topic) => (
+              <TopicScoreLine key={topic} result={result} topic={topic} tone="defect" />
             ))}
           </ul>
         </div>

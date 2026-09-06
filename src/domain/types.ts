@@ -49,15 +49,16 @@ export interface GroupScore {
   normalized: number;
 }
 
-export type GroupPair = readonly [LifestyleGroup, LifestyleGroup];
+export type ScoreTopic = LifestyleGroup | 'bmi' | 'fitness';
+export type TopicPair = readonly [ScoreTopic, ScoreTopic];
 
 export interface ScoreResult {
   bmi: { value: number; band: BmiBand; score: number; label: string };
   fitness: { reps: number; band: FitnessBand; score: number; label: string };
   groups: Record<LifestyleGroup, GroupScore>;
   total: number;
-  strengths: GroupPair;
-  weaknesses: GroupPair;
+  strengths: TopicPair;
+  weaknesses: TopicPair;
 }
 
 export type FlowStep =
@@ -82,12 +83,24 @@ export const LIFESTYLE_GROUPS: LifestyleGroup[] = [
   'mental',
 ];
 
-export const TIE_BREAK_ORDER: LifestyleGroup[] = [
+export const SCORE_TOPICS: ScoreTopic[] = [
   'sleep',
   'nutrition',
   'hydration',
   'activity',
   'mental',
+  'bmi',
+  'fitness',
+];
+
+export const TIE_BREAK_ORDER: ScoreTopic[] = [
+  'sleep',
+  'nutrition',
+  'hydration',
+  'activity',
+  'mental',
+  'bmi',
+  'fitness',
 ];
 
 export const METRIC_LIMITS = {
@@ -112,7 +125,7 @@ export interface Question {
 
 export interface KnowledgeCard {
   id: string;
-  group: LifestyleGroup;
+  group: ScoreTopic;
   title: string;
   body: string;
 }

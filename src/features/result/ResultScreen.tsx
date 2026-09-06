@@ -1,6 +1,5 @@
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
-import { DisclaimerWell } from '../../components/ui/DisclaimerWell';
 import { DogTagCard } from '../../components/ui/DogTagCard';
 import { Radar } from '../../components/ui/Radar';
 import { ScreenShell } from '../../components/ui/ScreenShell';
@@ -28,9 +27,6 @@ export function ResultScreen() {
       </div>
       <div className="mt-3">
         <DogTagCard result={result} />
-      </div>
-      <div className="mt-4">
-        <DisclaimerWell />
       </div>
     </ScreenShell>
   );

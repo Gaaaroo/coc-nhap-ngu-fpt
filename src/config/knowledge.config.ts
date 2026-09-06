@@ -1,6 +1,6 @@
-import type { KnowledgeCard } from '../domain/types';
+import type { KnowledgeCard, ScoreTopic } from '../domain/types';
 
-/** [CHỜ FSD / BTC] Kiến thức chung về lối sống — không nhắm vào cá nhân người chơi. */
+/** Gợi ý cải thiện theo từng hạng mục — chỉ hiện đúng 2 điểm khuyết của lượt chơi. */
 export const knowledgeCards: KnowledgeCard[] = [
   {
     id: 'k-sleep',
@@ -32,4 +32,25 @@ export const knowledgeCards: KnowledgeCard[] = [
     title: 'Căng thẳng thường ăn vào giấc ngủ',
     body: 'Áp lực học hành hay công việc kéo dài ít khi dừng ở đó, nó quay lại dưới dạng mất ngủ và ăn uống lung tung. Mỗi ngày để ra 15 phút rời màn hình — đi bộ, nghe nhạc, nói chuyện với bạn bè — là cách rẻ nhất để cắt vòng lặp.',
   },
+  {
+    id: 'k-bmi',
+    group: 'bmi',
+    title: 'Cân với chiều cao cần đi cùng nhau',
+    body: 'Chiều cao thì đứng yên, cân nặng thì chỉnh được bằng ăn và vận động đều. Lệch khung cân đối chủ yếu là lời nhắc chỉnh lại nhịp sinh hoạt — không phải kết luận sức khỏe.',
+  },
+  {
+    id: 'k-fitness',
+    group: 'fitness',
+    title: 'Tập đều còn hơn gắng một buổi',
+    body: 'Gập thanh, đi bộ hay leo cầu thang — làm thường xuyên thì tim mạch và cơ mới nhớ nhịp. Một buổi bỏ không sao; cả tuần ngồi lì mới kéo sức bền xuống.',
+  },
 ];
+
+export function cardsForWeaknesses(
+  weaknesses: readonly ScoreTopic[],
+  cards: KnowledgeCard[] = knowledgeCards,
+): KnowledgeCard[] {
+  return weaknesses
+    .map((group) => cards.find((card) => card.group === group))
+    .filter((card): card is KnowledgeCard => card != null);
+}

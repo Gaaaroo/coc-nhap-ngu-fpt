@@ -108,7 +108,11 @@ export const useSession = create<SessionState>()(
         const s = get();
         if (step === 'result' && !s.result) return;
         if (step === 'avatarUnlock' && !s.knowledgeCompleted) return;
-        set({ step });
+        if (step === 'knowledge') {
+          set({ step, knowledgeIndex: 0 });
+        } else {
+          set({ step });
+        }
         track(`step_${step}`);
       },
       goBack: () => {

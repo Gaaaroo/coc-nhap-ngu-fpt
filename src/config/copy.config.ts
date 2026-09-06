@@ -1,4 +1,4 @@
-import type { LifestyleGroup } from '../domain/types';
+import type { LifestyleGroup, ScoreTopic } from '../domain/types';
 
 export const copy = {
   event: 'CÓC NHẬP NGŨ 2026',
@@ -23,6 +23,16 @@ export const copy = {
     activity: 'Vận động',
     mental: 'Tinh thần',
   } satisfies Record<LifestyleGroup, string>,
+
+  topics: {
+    sleep: 'Giấc ngủ',
+    nutrition: 'Dinh dưỡng',
+    hydration: 'Uống nước',
+    activity: 'Vận động',
+    mental: 'Tinh thần',
+    bmi: 'Hình thể',
+    fitness: 'Thể lực',
+  } satisfies Record<ScoreTopic, string>,
 
   landing: {
     intro:
@@ -89,6 +99,7 @@ export const copy = {
 
   knowledge: {
     eyebrow: 'Gợi ý cải thiện',
+    forDefects: 'Đúng hai điểm khuyết vừa chấm — đọc rồi kéo lên.',
     counter: (current: number, total: number) => `Thẻ ${current}/${total}`,
     nextUp: 'Tiếp theo',
     prev: 'Trước',
