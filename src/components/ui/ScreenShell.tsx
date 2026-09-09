@@ -43,7 +43,7 @@ export function ScreenShell({
   const [confirm, setConfirm] = useState(false);
 
   return (
-    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-bg/80 text-ink">
+    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-bg/65 text-ink shadow-[0_0_60px_rgba(4,3,12,0.55)]">
       <Corner className="top-[max(0.5rem,env(safe-area-inset-top))] left-2 border-t-2 border-l-2" />
       <Corner className="top-[max(0.5rem,env(safe-area-inset-top))] right-2 border-t-2 border-r-2" />
       <Corner className="bottom-[max(0.5rem,env(safe-area-inset-bottom))] left-2 border-b-2 border-l-2" />
@@ -113,7 +113,7 @@ export function ScreenShell({
           </p>
         ) : null}
         {title ? (
-          <h1 className="mt-1 font-oswald text-[26px] font-semibold leading-tight tracking-[0.03em] text-ink">
+          <h1 className="mt-1 font-oswald text-[26px] font-semibold leading-[1.2] tracking-[0.03em] text-balance text-ink">
             {title}
           </h1>
         ) : null}
@@ -126,7 +126,7 @@ export function ScreenShell({
       </header>
       <main className="flex-1 overflow-y-auto px-4 pb-4">{children}</main>
       {footer ? (
-        <footer className="sticky bottom-0 border-t border-brass-deep/70 bg-bg/95 px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[6px]">
+        <footer className="sticky bottom-0 border-t border-brass-deep/70 bg-bg/88 px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[6px]">
           {footer}
         </footer>
       ) : null}

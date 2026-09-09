@@ -10,8 +10,8 @@ const CX = 120;
 const CY = 118;
 const R = 72;
 const BRASS = '#E2B34A';
-const OUTLINE = '#6F6754';
-const INK = '#F3EDE0';
+const OUTLINE = '#5F5988';
+const INK = '#F2EEFA';
 
 function point(index: number, value: number, radius = R) {
   const angle = -Math.PI / 2 + (index * 2 * Math.PI) / 5;
@@ -45,8 +45,9 @@ export function Radar({ values }: Props) {
   const polyAttr = poly.map((p) => `${p.x},${p.y}`).join(' ');
 
   return (
-    <svg viewBox="0 0 240 248" className="w-full" role="img" aria-label={copy.result.chartLabel}>
-      <polygon points={ringPoints(1)} fill="rgb(26 34 22 / 0.9)" stroke={OUTLINE} strokeWidth="1" />
+    // Lề trái/phải rộng thêm 24 để nhãn hai bên không bị cắt.
+    <svg viewBox="-24 0 288 248" className="w-full" role="img" aria-label={copy.result.chartLabel}>
+      <polygon points={ringPoints(1)} fill="rgb(23 18 51 / 0.9)" stroke={OUTLINE} strokeWidth="1" />
       <polygon points={ringPoints(0.66)} fill="none" stroke={OUTLINE} strokeWidth="1" opacity="0.55" />
       <polygon points={ringPoints(0.33)} fill="none" stroke={OUTLINE} strokeWidth="1" opacity="0.4" />
       {ring.map((p, i) => (

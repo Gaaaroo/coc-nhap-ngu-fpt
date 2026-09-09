@@ -1,6 +1,7 @@
 import { cardsForWeaknesses } from '../../config/knowledge.config';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
+import { GroupIcon } from '../../components/ui/GroupIcon';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { useSession } from '../../store/session.store';
 
@@ -51,9 +52,14 @@ export function KnowledgeScreen() {
       }
     >
       <article className="plate relative p-4">
-        <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
-          {copy.groups[card.group]}
-        </p>
+        <div className="mb-3 flex items-center gap-3">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border border-brass-deep bg-surface-2 text-brass">
+            <GroupIcon group={card.group} className="h-6 w-6" />
+          </span>
+          <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
+            {copy.groups[card.group]}
+          </p>
+        </div>
         <p className="mt-3 text-base leading-relaxed text-ink">{card.body}</p>
       </article>
       <p className="mt-3 text-sm leading-relaxed text-ink-muted">{copy.knowledge.note}</p>

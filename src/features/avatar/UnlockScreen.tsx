@@ -2,11 +2,14 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
 import { ScreenShell } from '../../components/ui/ScreenShell';
+import { frameTitleOf } from '../../domain/frame';
 import { useSession } from '../../store/session.store';
 
 export function UnlockScreen() {
   const reduce = useReducedMotion();
   const go = useSession((s) => s.go);
+  const total = useSession((s) => s.result?.total ?? 0);
+  const frameTitle = frameTitleOf(total, copy.frameRanks);
 
   return (
     <ScreenShell
@@ -19,14 +22,14 @@ export function UnlockScreen() {
           initial={reduce ? false : { scale: 0.86, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: reduce ? 0.2 : 0.55, ease: [0.2, 0.8, 0.2, 1] }}
-          className="relative flex h-44 w-44 items-center justify-center border-2 border-brass bg-surface shadow-[inset_0_0_0_8px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]"
+          className="relative flex min-h-44 w-full max-w-[20rem] items-center justify-center border-2 border-brass bg-surface px-3 py-6 shadow-[inset_0_0_0_8px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]"
         >
           <span className="absolute top-3 left-3 h-2 w-2 bg-brass" />
           <span className="absolute top-3 right-3 h-2 w-2 bg-brass" />
           <span className="absolute bottom-3 left-3 h-2 w-2 bg-brass" />
           <span className="absolute right-3 bottom-3 h-2 w-2 bg-brass" />
-          <span className="font-oswald text-base tracking-[0.22em] text-brass">
-            {copy.unlock.badge}
+          <span className="px-3 text-center font-oswald text-sm leading-[1.35] tracking-[0.12em] text-brass">
+            {frameTitle}
           </span>
         </motion.div>
       </div>

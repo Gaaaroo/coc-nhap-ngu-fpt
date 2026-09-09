@@ -2,6 +2,7 @@ import { copy } from '../../config/copy.config';
 import { roundBmiDisplay } from '../../domain/bmi';
 import { SCORE_GROUPS } from '../../domain/types';
 import type { ScoreGroup, ScoreResult } from '../../domain/types';
+import { GroupIcon } from './GroupIcon';
 
 interface Props {
   result: ScoreResult;
@@ -54,6 +55,12 @@ function GroupLine({
   const width = Math.max(0, Math.min(100, score));
   return (
     <li className="flex items-center gap-2">
+      <GroupIcon
+        group={id}
+        className={`h-4 w-4 shrink-0 ${
+          mark === 'healthy' ? 'text-healthy' : mark === 'defect' ? 'text-defect' : 'text-brass'
+        }`}
+      />
       <span className="w-[5.5rem] shrink-0 text-sm text-ink">{copy.groups[id]}</span>
       <span className="relative h-2 min-w-0 flex-1 rounded-full bg-surface-2">
         <span
@@ -133,8 +140,11 @@ export function DogTagCard({ result }: Props) {
           </p>
           <ul className="space-y-1 text-sm text-ink">
             {result.strengths.map((g) => (
-              <li key={g} className="flex justify-between gap-2">
-                <span>{copy.groups[g]}</span>
+              <li key={g} className="flex items-center justify-between gap-2">
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <GroupIcon group={g} className="h-4 w-4 shrink-0 text-healthy" />
+                  <span className="truncate">{copy.groups[g]}</span>
+                </span>
                 <span className="font-oswald tabular-nums text-healthy">
                   {round0(result.scores[g])}
                 </span>
@@ -149,8 +159,11 @@ export function DogTagCard({ result }: Props) {
           </p>
           <ul className="space-y-1 text-sm text-ink">
             {result.weaknesses.map((g) => (
-              <li key={g} className="flex justify-between gap-2">
-                <span>{copy.groups[g]}</span>
+              <li key={g} className="flex items-center justify-between gap-2">
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <GroupIcon group={g} className="h-4 w-4 shrink-0 text-defect" />
+                  <span className="truncate">{copy.groups[g]}</span>
+                </span>
                 <span className="font-oswald tabular-nums text-defect">
                   {round0(result.scores[g])}
                 </span>

@@ -2,8 +2,7 @@ import type { OverallTier, ScoreGroup } from '../domain/types';
 
 export const copy = {
   event: 'CÓC NHẬP NGŨ 2026',
-  codeName: 'MẬT MÃ SỐ 4',
-  tagline: 'BẺ ĐIỂM KHUYẾT – BIẾT ĐIỂM KHỎE',
+  tagline: 'BẺ ĐIỂM KHUYẾT BIẾT ĐIỂM KHỎE',
 
   recruitScore: 'Điểm tân binh',
   bmiLabel: 'BMI của bạn',
@@ -26,6 +25,7 @@ export const copy = {
   } satisfies Record<ScoreGroup, string>,
 
   landing: {
+    boothCode: 'MẬT MÃ SỐ 4',
     intro:
       'Ba phút thôi: đo vài chỉ số, gập thanh lò xo, trả lời nhanh mấy câu về thói quen hằng ngày. Xong là biết mình đang khỏe ở đâu, hụt ở đâu — và nhận một khung ảnh riêng.',
     beats: [
@@ -78,7 +78,7 @@ export const copy = {
     of100: '/100',
     overallHint: 'Xếp hạng tổng thể',
     highlightHint: 'Nhóm nổi bật / Nhóm cần cải thiện',
-    chartLabel: 'Sáu nhóm chỉ số',
+    chartLabel: 'Năm nhóm lối sống',
     mix: 'Gồm thể lực 20% và năm nhóm lối sống 80%.',
     converted: (physical: number) => `Điểm thể lực (BMI 40% + gập thanh 60%): ${physical}.`,
     healthyHint: 'Hai nhóm cao nhất',
@@ -108,8 +108,16 @@ export const copy = {
   unlock: {
     eyebrow: 'Phần thưởng',
     title: 'Mở khung tân binh',
-    badge: 'TÂN BINH',
   },
+
+  frameRanks: [
+    { min: 91, label: 'ĐẠI TƯỚNG TỐI THƯỢNG' },
+    { min: 81, label: 'CHIẾN BINH TINH NHUỆ' },
+    { min: 71, label: 'ĐẶC CÔNG SIÊU PHÀM' },
+    { min: 61, label: 'BINH NHẤT' },
+    { min: 41, label: 'LÍNH MỚI' },
+    { min: 0, label: 'TÂN BINH TẬP SỰ' },
+  ],
 
   upload: {
     eyebrow: 'Ảnh đại diện',

@@ -1,6 +1,7 @@
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
 import { DisclaimerWell } from '../../components/ui/DisclaimerWell';
+import { KeyVisualHero } from '../../components/ui/KeyVisualHero';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { useSession } from '../../store/session.store';
 
@@ -10,7 +11,7 @@ export function LandingScreen() {
 
   return (
     <ScreenShell hideBrand hideSkip footer={<Button onClick={start}>{copy.cta.start}</Button>}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center gap-3">
         <span
           aria-hidden
           className="h-3.5 w-3.5 shrink-0 rounded-full border-2 border-brass bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
@@ -22,13 +23,16 @@ export function LandingScreen() {
           {sessionNotice}
         </p>
       ) : null}
-      <h1 className="mt-5 font-oswald text-[38px] font-bold leading-[0.95] tracking-[0.04em] text-ink">
-        {copy.codeName}
-      </h1>
-      <p className="mt-4 border border-brass-deep bg-surface px-3 py-2 font-oswald text-[15px] tracking-[0.08em] text-brass shadow-[inset_0_1px_0_var(--color-highlight)]">
-        {copy.tagline}
+      <p className="mt-5 text-center font-oswald text-[13px] tracking-[0.24em] text-brass uppercase">
+        {copy.landing.boothCode}
       </p>
-      <p className="mt-5 text-base leading-relaxed text-ink">{copy.landing.intro}</p>
+      {/* leading >= 1.1: chữ hoa tiếng Việt có dấu chồng hai tầng, chật hơn là dấu đâm vào dòng trên */}
+      <h1 className="mt-2 text-center font-oswald text-[36px] font-bold leading-[1.12] tracking-[0.04em] text-balance text-ink">
+        {copy.tagline}
+      </h1>
+      <p className="mt-4 text-center text-base leading-relaxed text-pretty text-ink">
+        {copy.landing.intro}
+      </p>
       <ol className="mt-5 flex items-stretch gap-0 border border-outline bg-surface shadow-[inset_0_1px_0_var(--color-highlight)]">
         {copy.landing.beats.map((beat, i) => (
           <li
@@ -44,6 +48,9 @@ export function LandingScreen() {
       </ol>
       <div className="mt-6">
         <DisclaimerWell />
+      </div>
+      <div className="-mx-1 mt-5">
+        <KeyVisualHero />
       </div>
     </ScreenShell>
   );

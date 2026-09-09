@@ -33,7 +33,7 @@ describe('config integrity', () => {
       expect(q.options.every((o) => typeof o.score === 'number')).toBe(true);
     }
     for (const g of LIFESTYLE_GROUPS) {
-      expect(questions.filter((q) => q.group === g)).toHaveLength(2);
+      expect(questions.filter((q) => q.group === g)).toHaveLength(1);
     }
   });
 

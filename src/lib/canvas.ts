@@ -10,7 +10,6 @@ const BAND_BOTTOM = 190;
 
 const BRASS = '#E2B34A';
 const BRASS_DEEP = '#9A6B18';
-const INK_MUTED = '#C6BBA6';
 const BAND_FILL = 'rgba(14, 18, 12, 0.88)';
 
 function loadImage(src: string): Promise<HTMLImageElement> {
@@ -46,7 +45,7 @@ async function ensureFonts(): Promise<void> {
     await Promise.all([
       document.fonts.load('600 34px Oswald'),
       document.fonts.load('700 76px Oswald'),
-      document.fonts.load('500 30px "Be Vietnam Pro"'),
+      document.fonts.load('700 44px Oswald'),
     ]);
   } catch {
     /* font dự phòng vẫn đọc được, không chặn luồng */
@@ -63,7 +62,32 @@ function clampCrop(photo: HTMLImageElement, crop: Area): Area {
   return { x, y, width: Math.max(1, width), height: Math.max(1, height) };
 }
 
-function drawFrame(ctx: CanvasRenderingContext2D): void {
+function drawFittedTitle(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  centerX: number,
+  y: number,
+  maxWidth: number,
+): void {
+  let size = 76;
+  let tracking = 12;
+  while (size >= 36) {
+    ctx.font = `700 ${size}px Oswald, sans-serif`;
+    const chars = [...text];
+    const total =
+      chars.reduce((w, c) => w + ctx.measureText(c).width, 0) + tracking * Math.max(0, chars.length - 1);
+    if (total <= maxWidth) {
+      drawTracked(ctx, text, centerX, y, tracking);
+      return;
+    }
+    size -= 4;
+    tracking = Math.max(2, tracking - 1);
+  }
+  ctx.font = '700 36px Oswald, sans-serif';
+  drawTracked(ctx, text, centerX, y, 2);
+}
+
+function drawFrame(ctx: CanvasRenderingContext2D, frameTitle: string): void {
   const inner = MARGIN + BORDER;
   const innerSize = SIZE - inner * 2;
   const bottomY = SIZE - inner - BAND_BOTTOM;
@@ -108,15 +132,14 @@ function drawFrame(ctx: CanvasRenderingContext2D): void {
   ctx.font = '600 34px Oswald, sans-serif';
   drawTracked(ctx, copy.event, SIZE / 2, inner + BAND_TOP / 2, 10);
 
-  ctx.font = '700 76px Oswald, sans-serif';
-  drawTracked(ctx, copy.unlock.badge, SIZE / 2, bottomY + 76, 16);
-
-  ctx.fillStyle = INK_MUTED;
-  ctx.font = '500 30px "Be Vietnam Pro", sans-serif';
-  drawTracked(ctx, copy.codeName, SIZE / 2, bottomY + 146, 6);
+  drawFittedTitle(ctx, frameTitle, SIZE / 2, bottomY + BAND_BOTTOM / 2, innerSize - 48);
 }
 
-export async function composeAvatar(sourceUrl: string, crop: Area): Promise<Blob> {
+export async function composeAvatar(
+  sourceUrl: string,
+  crop: Area,
+  frameTitle: string,
+): Promise<Blob> {
   const photo = await loadImage(sourceUrl).catch(() => {
     throw new Error('Không mở được ảnh vừa chọn.');
   });
@@ -128,7 +151,7 @@ export async function composeAvatar(sourceUrl: string, crop: Area): Promise<Blob
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Thiết bị không hỗ trợ xử lý ảnh.');
 
-  ctx.fillStyle = '#0E120C';
+  ctx.fillStyle = '#0A0718';
   ctx.fillRect(0, 0, SIZE, SIZE);
 
   const src = clampCrop(photo, crop);
@@ -140,8 +163,13 @@ export async function composeAvatar(sourceUrl: string, crop: Area): Promise<Blob
 
   if (overlay) {
     ctx.drawImage(overlay, 0, 0, SIZE, SIZE);
+    const inner = MARGIN + BORDER;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = BRASS;
+    drawFittedTitle(ctx, frameTitle, SIZE / 2, SIZE - inner - BAND_BOTTOM / 2, SIZE - inner * 2 - 48);
   } else {
-    drawFrame(ctx);
+    drawFrame(ctx, frameTitle);
   }
 
   return new Promise((resolve, reject) => {

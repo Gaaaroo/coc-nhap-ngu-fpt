@@ -3,6 +3,7 @@ import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
 import { ScreenShell } from '../../components/ui/ScreenShell';
 import { composeAvatar, blobToFile } from '../../lib/canvas';
+import { frameTitleOf } from '../../domain/frame';
 import { track } from '../../lib/analytics';
 import { canShareFiles, downloadFile, isInAppBrowser, shareFile } from '../../lib/share';
 import { useSession } from '../../store/session.store';
@@ -14,6 +15,8 @@ export function PreviewScreen() {
   const setAvatarBlobUrl = useSession((s) => s.setAvatarBlobUrl);
   const go = useSession((s) => s.go);
   const goBack = useSession((s) => s.goBack);
+  const total = useSession((s) => s.result?.total ?? 0);
+  const frameTitle = frameTitleOf(total, copy.frameRanks);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [shareState, setShareState] = useState<'idle' | 'shared'>('idle');
@@ -23,7 +26,7 @@ export function PreviewScreen() {
     let cancelled = false;
     void (async () => {
       try {
-        const blob = await composeAvatar(sourceImageUrl, cropPixels);
+        const blob = await composeAvatar(sourceImageUrl, cropPixels, frameTitle);
         if (cancelled) return;
         const nextFile = blobToFile(blob);
         setFile(nextFile);
@@ -37,14 +40,14 @@ export function PreviewScreen() {
     return () => {
       cancelled = true;
     };
-  }, [sourceImageUrl, cropPixels, setAvatarBlobUrl]);
+  }, [sourceImageUrl, cropPixels, frameTitle, setAvatarBlobUrl]);
 
   const inApp = isInAppBrowser();
   const shareOk = file ? canShareFiles(file) : false;
 
   const onShare = async () => {
     if (!file) return;
-    const result = await shareFile(file, copy.codeName, copy.tagline);
+    const result = await shareFile(file, copy.event, copy.tagline);
     if (result === 'shared') {
       setShareState('shared');
       track('step_avatar_exported');
