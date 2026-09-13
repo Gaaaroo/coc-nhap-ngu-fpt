@@ -163,11 +163,6 @@ export async function composeAvatar(
 
   if (overlay) {
     ctx.drawImage(overlay, 0, 0, SIZE, SIZE);
-    const inner = MARGIN + BORDER;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = BRASS;
-    drawFittedTitle(ctx, frameTitle, SIZE / 2, SIZE - inner - BAND_BOTTOM / 2, SIZE - inner * 2 - 48);
   } else {
     drawFrame(ctx, frameTitle);
   }

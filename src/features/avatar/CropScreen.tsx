@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import Cropper, { type Area } from 'react-easy-crop';
+import { avatarConfig } from '../../config/avatar.config';
 import { copy } from '../../config/copy.config';
 import { Button } from '../../components/ui/Button';
 import { ScreenShell } from '../../components/ui/ScreenShell';
@@ -68,8 +69,17 @@ export function CropScreen() {
           onCropComplete={onComplete}
           objectFit="cover"
           restrictPosition
+          showGrid={!avatarConfig.frameOverlayUrl}
           style={{
             containerStyle: { background: '#000' },
+            cropAreaStyle: avatarConfig.frameOverlayUrl
+              ? {
+                  border: 'none',
+                  backgroundImage: `url(${avatarConfig.frameOverlayUrl})`,
+                  backgroundSize: '100% 100%',
+                  color: 'rgba(10, 7, 24, 0.72)',
+                }
+              : undefined,
           }}
         />
       </div>

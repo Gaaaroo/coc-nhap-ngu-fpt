@@ -11,7 +11,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
-      includeAssets: ['icons/icon.svg'],
+      includeAssets: ['icons/icon.svg', 'frames/cnn-galaxy.png'],
       manifest: {
         name: 'Cóc Nhập Ngũ 2026',
         short_name: 'Cóc Nhập Ngũ',

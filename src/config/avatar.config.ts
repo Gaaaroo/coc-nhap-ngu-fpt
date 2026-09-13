@@ -1,9 +1,7 @@
 /**
- * Khung mặc định được vẽ bằng Canvas trong src/lib/canvas.ts.
- * Khi designer giao file PNG 1080×1080 nền trong suốt, đặt vào public/frames/
- * rồi trỏ đường dẫn vào đây. Nạp lỗi thì tự quay về khung vẽ sẵn.
+ * Khung KV Cóc Nhập Ngũ (lỗ tròn trong suốt). Nạp lỗi thì quay về khung brass vẽ sẵn.
  */
 export const avatarConfig = {
   size: 1080,
-  frameOverlayUrl: null as string | null,
+  frameOverlayUrl: '/frames/cnn-galaxy.png' as string | null,
 };
