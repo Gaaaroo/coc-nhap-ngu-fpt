@@ -53,10 +53,10 @@ export function KnowledgeScreen() {
     >
       <article className="plate relative p-4">
         <div className="mb-3 flex items-center gap-3">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border border-brass-deep bg-surface-2 text-brass">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border border-accent-deep bg-surface-2 text-accent">
             <GroupIcon group={card.group} className="h-6 w-6" />
           </span>
-          <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
+          <p className="font-oswald text-[11px] tracking-[0.18em] text-accent uppercase">
             {copy.groups[card.group]}
           </p>
         </div>
@@ -65,7 +65,7 @@ export function KnowledgeScreen() {
       <p className="mt-3 text-sm leading-relaxed text-ink-muted">{copy.knowledge.note}</p>
       {next ? (
         <p className="plate mt-3 truncate px-3 py-2 text-sm text-ink-muted">
-          <span className="mr-2 font-oswald tracking-[0.12em] text-brass uppercase">
+          <span className="mr-2 font-oswald tracking-[0.12em] text-accent uppercase">
             {copy.knowledge.nextUp}
           </span>
           {next.title}

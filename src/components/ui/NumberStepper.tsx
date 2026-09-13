@@ -102,7 +102,7 @@ export function NumberStepper({
     >
       <label
         htmlFor={inputId}
-        className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase"
+        className="font-oswald text-[11px] tracking-[0.16em] text-accent uppercase"
       >
         {label}
       </label>
@@ -112,7 +112,7 @@ export function NumberStepper({
           aria-label={`Giảm ${label}`}
           aria-disabled={atMin}
           disabled={atMin}
-          className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface-2 text-2xl text-ink shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass disabled:opacity-40"
+          className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface-2 text-2xl text-ink shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40"
           onPointerDown={() => startHold(-1)}
           onPointerUp={stopHold}
           onPointerLeave={stopHold}
@@ -121,8 +121,8 @@ export function NumberStepper({
           −
         </button>
         <div
-          className={`flex min-h-12 min-w-0 flex-1 items-baseline justify-center gap-1 rounded-[4px] border bg-bg px-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.28)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brass ${
-            invalid ? 'border-danger' : 'border-outline focus-within:border-brass'
+          className={`flex min-h-12 min-w-0 flex-1 items-baseline justify-center gap-1 rounded-[4px] border bg-bg px-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.28)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent ${
+            invalid ? 'border-danger' : 'border-outline focus-within:border-accent'
           }`}
         >
           <input
@@ -172,7 +172,7 @@ export function NumberStepper({
                 e.currentTarget.blur();
               }
             }}
-            className="min-w-0 flex-1 bg-transparent text-center font-oswald text-[28px] leading-none tracking-wide text-brass outline-none"
+            className="min-w-0 flex-1 bg-transparent text-center font-oswald text-[28px] leading-none tracking-wide text-accent outline-none"
           />
           <span className="pr-2 font-bevietnam text-base text-ink-muted">{unit}</span>
         </div>
@@ -181,7 +181,7 @@ export function NumberStepper({
           aria-label={`Tăng ${label}`}
           aria-disabled={atMax}
           disabled={atMax}
-          className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface-2 text-2xl text-ink shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass disabled:opacity-40"
+          className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface-2 text-2xl text-ink shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40"
           onPointerDown={() => startHold(1)}
           onPointerUp={stopHold}
           onPointerLeave={stopHold}

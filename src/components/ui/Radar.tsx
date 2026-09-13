@@ -9,7 +9,7 @@ interface Props {
 const CX = 120;
 const CY = 118;
 const R = 72;
-const BRASS = '#E2B34A';
+const ACCENT = '#C07BF5';
 const OUTLINE = '#5F5988';
 const INK = '#F2EEFA';
 
@@ -53,9 +53,9 @@ export function Radar({ values }: Props) {
       {ring.map((p, i) => (
         <line key={i} x1={CX} y1={CY} x2={p.x} y2={p.y} stroke={OUTLINE} strokeWidth="1" />
       ))}
-      <polygon points={polyAttr} fill="rgb(226 179 74 / 0.38)" stroke={BRASS} strokeWidth="2" />
+      <polygon points={polyAttr} fill="rgb(192 123 245 / 0.34)" stroke={ACCENT} strokeWidth="2" />
       {poly.map((p, i) => (
-        <circle key={LIFESTYLE_GROUPS[i]} cx={p.x} cy={p.y} r="3" fill={BRASS} />
+        <circle key={LIFESTYLE_GROUPS[i]} cx={p.x} cy={p.y} r="3" fill={ACCENT} />
       ))}
       {ring.map((p, i) => {
           const g = LIFESTYLE_GROUPS[i];
@@ -73,7 +73,7 @@ export function Radar({ values }: Props) {
               <tspan x={p.lx} dy="-0.45em">
                 {copy.groups[g]}
               </tspan>
-              <tspan x={p.lx} dy="1.2em" fill={BRASS} fontFamily="Oswald, sans-serif" fontSize="12">
+              <tspan x={p.lx} dy="1.2em" fill={ACCENT} fontFamily="Oswald, sans-serif" fontSize="12">
                 {Math.round(values[g])}
               </tspan>
             </text>

@@ -24,7 +24,7 @@ export function ProgressBelt({ value, max, label }: Props) {
             key={i}
             className={`h-2.5 flex-1 rounded-full border ${
               filled
-                ? 'border-brass-deep bg-brass shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]'
+                ? 'border-accent-deep bg-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]'
                 : 'border-outline/80 bg-surface-2'
             }`}
           />

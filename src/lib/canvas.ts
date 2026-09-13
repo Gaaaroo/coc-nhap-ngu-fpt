@@ -5,12 +5,22 @@ import { copy } from '../config/copy.config';
 const SIZE = avatarConfig.size;
 const MARGIN = 0;
 const BORDER = 18;
-const BAND_TOP = 104;
-const BAND_BOTTOM = 190;
+const BAND_TOP = 88;
+const BAND_BOTTOM = 132;
 
-const BRASS = '#E2B34A';
-const BRASS_DEEP = '#9A6B18';
-const BAND_FILL = 'rgba(14, 18, 12, 0.88)';
+// Tím lấy từ key visual. MAT_FILL theo nền chàm #0A0718 của app.
+const FRAME = '#C07BF5';
+const FRAME_DEEP = '#7326B8';
+const MAT_FILL = '#0A0718';
+
+/**
+ * Ảnh và khung KV nằm gọn trong một ô vuông giữa hai dải chữ, nên cạnh ô bị
+ * chiều cao khống chế chứ không phải chiều ngang — phần thừa hai bên thành
+ * mép mat tối bao quanh.
+ */
+const CONTENT_SIDE = SIZE - (MARGIN + BORDER) * 2 - BAND_TOP - BAND_BOTTOM;
+const CONTENT_X = (SIZE - CONTENT_SIDE) / 2;
+const CONTENT_Y = MARGIN + BORDER + BAND_TOP;
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -87,16 +97,13 @@ function drawFittedTitle(
   drawTracked(ctx, text, centerX, y, 2);
 }
 
+/** Viền, hai đường kẻ ngăn dải, bốn góc và hai dòng chữ. Nền mat đã vẽ sẵn. */
 function drawFrame(ctx: CanvasRenderingContext2D, frameTitle: string): void {
   const inner = MARGIN + BORDER;
   const innerSize = SIZE - inner * 2;
   const bottomY = SIZE - inner - BAND_BOTTOM;
 
-  ctx.fillStyle = BAND_FILL;
-  ctx.fillRect(inner, inner, innerSize, BAND_TOP);
-  ctx.fillRect(inner, bottomY, innerSize, BAND_BOTTOM);
-
-  ctx.strokeStyle = BRASS;
+  ctx.strokeStyle = FRAME;
   ctx.lineWidth = BORDER;
   ctx.strokeRect(
     MARGIN + BORDER / 2,
@@ -105,7 +112,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, frameTitle: string): void {
     SIZE - MARGIN * 2 - BORDER,
   );
 
-  ctx.strokeStyle = BRASS_DEEP;
+  ctx.strokeStyle = FRAME_DEEP;
   ctx.lineWidth = 4;
   ctx.beginPath();
   ctx.moveTo(inner, inner + BAND_TOP);
@@ -114,7 +121,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, frameTitle: string): void {
   ctx.lineTo(inner + innerSize, bottomY);
   ctx.stroke();
 
-  ctx.fillStyle = BRASS_DEEP;
+  ctx.fillStyle = FRAME_DEEP;
   const cap = 120;
   for (const [x, y] of [
     [0, 0],
@@ -128,7 +135,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, frameTitle: string): void {
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
 
-  ctx.fillStyle = BRASS;
+  ctx.fillStyle = FRAME;
   ctx.font = '600 34px Oswald, sans-serif';
   drawTracked(ctx, copy.event, SIZE / 2, inner + BAND_TOP / 2, 10);
 
@@ -151,21 +158,32 @@ export async function composeAvatar(
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Thiết bị không hỗ trợ xử lý ảnh.');
 
-  ctx.fillStyle = '#0A0718';
+  ctx.fillStyle = MAT_FILL;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
   const src = clampCrop(photo, crop);
-  ctx.drawImage(photo, src.x, src.y, src.width, src.height, 0, 0, SIZE, SIZE);
+  ctx.drawImage(
+    photo,
+    src.x,
+    src.y,
+    src.width,
+    src.height,
+    CONTENT_X,
+    CONTENT_Y,
+    CONTENT_SIDE,
+    CONTENT_SIDE,
+  );
 
   const overlay = avatarConfig.frameOverlayUrl
     ? await loadImage(avatarConfig.frameOverlayUrl).catch(() => null)
     : null;
 
+  // Khung KV lồng đúng vào ô ảnh; khung tím thì luôn bao bên ngoài, kể cả khi
+  // PNG hỏng không tải được.
   if (overlay) {
-    ctx.drawImage(overlay, 0, 0, SIZE, SIZE);
-  } else {
-    drawFrame(ctx, frameTitle);
+    ctx.drawImage(overlay, CONTENT_X, CONTENT_Y, CONTENT_SIDE, CONTENT_SIDE);
   }
+  drawFrame(ctx, frameTitle);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(

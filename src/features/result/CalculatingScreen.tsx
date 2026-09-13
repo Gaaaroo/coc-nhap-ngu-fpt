@@ -27,13 +27,13 @@ export function CalculatingScreen() {
           initial={reduce ? false : { scale: 1.18, opacity: 0.4, rotate: -8 }}
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           transition={{ duration: reduce ? 0.2 : 0.7, ease: [0.2, 0.8, 0.2, 1] }}
-          className="relative flex h-32 w-32 items-center justify-center border-2 border-brass bg-surface shadow-[inset_0_0_0_6px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]"
+          className="relative flex h-32 w-32 items-center justify-center border-2 border-accent bg-surface shadow-[inset_0_0_0_6px_var(--color-bg),0_0_0_2px_var(--color-accent-deep)]"
         >
-          <span className="absolute top-2 left-2 h-2 w-2 bg-brass" />
-          <span className="absolute top-2 right-2 h-2 w-2 bg-brass" />
-          <span className="absolute bottom-2 left-2 h-2 w-2 bg-brass" />
-          <span className="absolute right-2 bottom-2 h-2 w-2 bg-brass" />
-          <p className="font-oswald text-sm tracking-[0.18em] text-brass">{copy.calculating.stamp}</p>
+          <span className="absolute top-2 left-2 h-2 w-2 bg-accent" />
+          <span className="absolute top-2 right-2 h-2 w-2 bg-accent" />
+          <span className="absolute bottom-2 left-2 h-2 w-2 bg-accent" />
+          <span className="absolute right-2 bottom-2 h-2 w-2 bg-accent" />
+          <p className="font-oswald text-sm tracking-[0.18em] text-accent">{copy.calculating.stamp}</p>
         </motion.div>
       </div>
     </ScreenShell>

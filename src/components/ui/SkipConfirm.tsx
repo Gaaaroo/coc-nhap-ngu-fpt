@@ -37,8 +37,8 @@ export function SkipConfirm({ open, onStay, onLeave }: Props) {
         className="relative w-full max-w-[430px] overflow-hidden rounded-[4px] border border-outline bg-disclaimer-bg p-4 shadow-[inset_0_1px_0_var(--color-highlight)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-brass" />
-        <p id="skip-title" className="font-oswald text-lg tracking-wide text-brass">
+        <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-accent" />
+        <p id="skip-title" className="font-oswald text-lg tracking-wide text-accent">
           {copy.skip.title}
         </p>
         <p id="skip-body" className="mt-2 text-sm leading-relaxed text-ink">

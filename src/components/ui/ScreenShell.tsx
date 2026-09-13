@@ -21,7 +21,7 @@ function Corner({ className }: { className: string }) {
   return (
     <span
       aria-hidden
-      className={`pointer-events-none absolute h-3 w-3 border-brass ${className}`}
+      className={`pointer-events-none absolute h-3 w-3 border-accent ${className}`}
     />
   );
 }
@@ -57,7 +57,7 @@ export function ScreenShell({
                 type="button"
                 onClick={onBack}
                 aria-label={copy.cta.back}
-                className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface text-brass shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
+                className="flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface text-accent shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
                   <path
@@ -70,7 +70,7 @@ export function ScreenShell({
                 </svg>
               </button>
             ) : brand ? (
-              <span className="font-oswald text-[11px] tracking-[0.28em] text-brass">
+              <span className="font-oswald text-[11px] tracking-[0.28em] text-accent">
                 {copy.event}
               </span>
             ) : (
@@ -81,7 +81,7 @@ export function ScreenShell({
                 type="button"
                 onClick={() => setConfirm(true)}
                 aria-label={copy.cta.skip}
-                className="ml-auto flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface text-brass shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
+                className="ml-auto flex min-h-12 min-w-12 items-center justify-center rounded-[4px] border border-outline bg-surface text-accent shadow-[inset_0_1px_0_var(--color-highlight)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden>
                   <path
@@ -107,7 +107,7 @@ export function ScreenShell({
         ) : null}
         {eyebrow ? (
           <p
-            className={`${showTop ? 'mt-3' : 'mt-2'} font-oswald text-[11px] tracking-[0.2em] text-brass uppercase`}
+            className={`${showTop ? 'mt-3' : 'mt-2'} font-oswald text-[11px] tracking-[0.2em] text-accent uppercase`}
           >
             {eyebrow}
           </p>
@@ -122,11 +122,11 @@ export function ScreenShell({
             <ProgressBelt {...progress} />
           </div>
         ) : null}
-        <div className="mt-3 h-px bg-brass-deep/55" />
+        <div className="mt-3 h-px bg-accent-deep/55" />
       </header>
       <main className="flex-1 overflow-y-auto px-4 pb-4">{children}</main>
       {footer ? (
-        <footer className="sticky bottom-0 border-t border-brass-deep/70 bg-bg/88 px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[6px]">
+        <footer className="sticky bottom-0 border-t border-accent-deep/70 bg-bg/88 px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[6px]">
           {footer}
         </footer>
       ) : null}

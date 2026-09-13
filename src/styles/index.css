@@ -15,14 +15,14 @@
   --color-surface-2: #221c47;
   --color-ink: #f2eefa;
   --color-ink-muted: #bab2d6;
-  --color-brass: #e2b34a;
-  --color-on-brass: #161108;
-  --color-brass-deep: #9a6b18;
+  --color-accent: #c07bf5;
+  --color-on-accent: #1b0b2a;
+  --color-accent-deep: #7326b8;
   --color-outline: #5f5988;
   --color-healthy: #86c26a;
   --color-defect: #e09448;
   --color-danger: #e25c4a;
-  --color-disclaimer-bg: #2a2214;
+  --color-disclaimer-bg: #241a3a;
   --color-highlight: #ffffff14;
 
   /* Key-visual nebula accents, for anything that wants to echo the poster. */
@@ -179,8 +179,8 @@ body::after {
 }
 
 ::selection {
-  background: var(--color-brass);
-  color: var(--color-on-brass);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 button {
@@ -194,13 +194,13 @@ button {
   box-shadow: inset 0 1px 0 var(--color-highlight);
 }
 
-.plate-brass {
-  border: 2px solid var(--color-brass);
+.plate-accent {
+  border: 2px solid var(--color-accent);
   border-radius: 4px;
   background: var(--color-surface);
   box-shadow:
     inset 0 1px 0 var(--color-highlight),
-    0 0 0 1px rgb(154 107 24 / 0.35);
+    0 0 0 1px rgb(115 38 184 / 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

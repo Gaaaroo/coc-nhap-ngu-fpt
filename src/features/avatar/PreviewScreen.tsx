@@ -90,7 +90,7 @@ export function PreviewScreen() {
         <img
           src={avatarBlobUrl}
           alt={copy.preview.alt}
-          className="plate-brass mx-auto w-full max-w-[360px]"
+          className="plate-accent mx-auto w-full max-w-[360px]"
         />
       ) : error ? (
         <p className="text-sm text-danger">{error}</p>

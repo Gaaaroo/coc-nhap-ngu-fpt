@@ -14,7 +14,7 @@ export function IdleOverlay({ seconds, onStay, onReset }: Props) {
         <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-danger" />
         <p className="font-oswald text-lg tracking-wide text-danger">{copy.idle.title}</p>
         <p className="mt-2 text-sm leading-relaxed text-ink">{copy.idle.body}</p>
-        <p className="mt-3 font-oswald text-4xl text-brass" aria-live="assertive">
+        <p className="mt-3 font-oswald text-4xl text-accent" aria-live="assertive">
           {seconds}s
         </p>
         <div className="mt-4 space-y-2">

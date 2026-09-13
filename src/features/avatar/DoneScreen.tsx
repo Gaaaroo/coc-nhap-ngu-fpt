@@ -21,12 +21,12 @@ export function DoneScreen() {
       title={copy.done.title}
       footer={<Button onClick={reset}>{copy.cta.newRound}</Button>}
     >
-      <div className="plate-brass flex flex-col items-center px-4 py-8 text-center">
+      <div className="plate-accent flex flex-col items-center px-4 py-8 text-center">
         <span
           aria-hidden
-          className="mb-4 h-3.5 w-3.5 rounded-full border-2 border-brass bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
+          className="mb-4 h-3.5 w-3.5 rounded-full border-2 border-accent bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
         />
-        <p className="font-oswald text-sm tracking-[0.12em] text-brass">{frameTitle}</p>
+        <p className="font-oswald text-sm tracking-[0.12em] text-accent">{frameTitle}</p>
         <p className="mt-4 text-lg leading-relaxed text-ink">{copy.done.body}</p>
       </div>
     </ScreenShell>

@@ -48,7 +48,7 @@ export function QuizScreen() {
             selected={selected === opt.id}
             onSelect={() => choose(opt.id)}
           >
-            <span className="mr-3 inline-block w-6 font-oswald text-brass">
+            <span className="mr-3 inline-block w-6 font-oswald text-accent">
               {String.fromCharCode(65 + i)}
             </span>
             {opt.label}

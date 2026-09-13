@@ -56,7 +56,7 @@ export function CropScreen() {
         </Button>
       }
     >
-      <div className="relative h-[min(70vw,360px)] w-full overflow-hidden rounded-[4px] border border-brass bg-black">
+      <div className="relative h-[min(70vw,360px)] w-full overflow-hidden rounded-[4px] border border-accent bg-black">
         <Cropper
           image={sourceImageUrl}
           crop={crop}
@@ -92,9 +92,9 @@ export function CropScreen() {
           step={0.05}
           value={zoom}
           onChange={(e) => setZoom(Number(e.target.value))}
-          className="min-h-12 flex-1 accent-brass"
+          className="min-h-12 flex-1 accent-accent"
         />
-        <span className="w-12 shrink-0 text-right font-oswald tabular-nums text-brass">
+        <span className="w-12 shrink-0 text-right font-oswald tabular-nums text-accent">
           {Math.round(zoom * 100)}%
         </span>
       </label>

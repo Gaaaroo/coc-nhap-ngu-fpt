@@ -35,14 +35,14 @@ export function UnlockScreen() {
               className="aspect-square w-full bg-bg"
             />
           ) : (
-            <div className="relative flex min-h-44 w-full items-center justify-center border-2 border-brass bg-surface px-3 py-6 shadow-[inset_0_0_0_8px_var(--color-bg),0_0_0_2px_var(--color-brass-deep)]">
-              <span className="absolute top-3 left-3 h-2 w-2 bg-brass" />
-              <span className="absolute top-3 right-3 h-2 w-2 bg-brass" />
-              <span className="absolute bottom-3 left-3 h-2 w-2 bg-brass" />
-              <span className="absolute right-3 bottom-3 h-2 w-2 bg-brass" />
+            <div className="relative flex min-h-44 w-full items-center justify-center border-2 border-accent bg-surface px-3 py-6 shadow-[inset_0_0_0_8px_var(--color-bg),0_0_0_2px_var(--color-accent-deep)]">
+              <span className="absolute top-3 left-3 h-2 w-2 bg-accent" />
+              <span className="absolute top-3 right-3 h-2 w-2 bg-accent" />
+              <span className="absolute bottom-3 left-3 h-2 w-2 bg-accent" />
+              <span className="absolute right-3 bottom-3 h-2 w-2 bg-accent" />
             </div>
           )}
-          <span className="mt-4 px-3 text-center font-oswald text-sm leading-[1.35] tracking-[0.12em] text-brass">
+          <span className="mt-4 px-3 text-center font-oswald text-sm leading-[1.35] tracking-[0.12em] text-accent">
             {frameTitle}
           </span>
         </motion.div>

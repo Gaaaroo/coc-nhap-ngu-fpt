@@ -16,7 +16,7 @@ function Pip({ kind }: { kind: 'healthy' | 'defect' }) {
   return (
     <span
       aria-hidden
-      className={`mr-2 inline-flex h-5 w-5 items-center justify-center rounded-[2px] font-oswald text-xs text-on-brass ${
+      className={`mr-2 inline-flex h-5 w-5 items-center justify-center rounded-[2px] font-oswald text-xs text-on-accent ${
         kind === 'healthy' ? 'bg-healthy' : 'bg-defect'
       }`}
     >
@@ -36,7 +36,7 @@ function Metric({
 }) {
   return (
     <div className="min-w-0">
-      <p className="font-oswald text-[11px] tracking-[0.14em] text-brass uppercase">{label}</p>
+      <p className="font-oswald text-[11px] tracking-[0.14em] text-accent uppercase">{label}</p>
       <p className="mt-1 font-oswald text-[28px] leading-none tracking-wide text-ink">{value}</p>
       <p className="mt-1 text-sm text-ink-muted">{note}</p>
     </div>
@@ -58,14 +58,14 @@ function GroupLine({
       <GroupIcon
         group={id}
         className={`h-4 w-4 shrink-0 ${
-          mark === 'healthy' ? 'text-healthy' : mark === 'defect' ? 'text-defect' : 'text-brass'
+          mark === 'healthy' ? 'text-healthy' : mark === 'defect' ? 'text-defect' : 'text-accent'
         }`}
       />
       <span className="w-[5.5rem] shrink-0 text-sm text-ink">{copy.groups[id]}</span>
       <span className="relative h-2 min-w-0 flex-1 rounded-full bg-surface-2">
         <span
           className={`absolute inset-y-0 left-0 rounded-full ${
-            mark === 'healthy' ? 'bg-healthy' : mark === 'defect' ? 'bg-defect' : 'bg-brass'
+            mark === 'healthy' ? 'bg-healthy' : mark === 'defect' ? 'bg-defect' : 'bg-accent'
           }`}
           style={{ width: `${width}%` }}
         />
@@ -86,23 +86,23 @@ export function DogTagCard({ result }: Props) {
   };
 
   return (
-    <article className="plate-brass relative p-4 pl-7">
+    <article className="plate-accent relative p-4 pl-7">
       <span
         aria-hidden
-        className="absolute top-5 left-2.5 h-3.5 w-3.5 rounded-full border-2 border-brass bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
+        className="absolute top-5 left-2.5 h-3.5 w-3.5 rounded-full border-2 border-accent bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
       />
 
-      <p className="font-oswald text-[11px] tracking-[0.18em] text-brass uppercase">
+      <p className="font-oswald text-[11px] tracking-[0.18em] text-accent uppercase">
         {copy.referenceOnly}
       </p>
       <p className="mt-1 font-oswald text-[12px] tracking-[0.22em] text-ink-muted uppercase">
         {copy.recruitScore}
       </p>
       <p className="mt-1 flex items-baseline gap-1 font-oswald leading-none">
-        <span className="text-[48px] tracking-wide text-brass">{total}</span>
+        <span className="text-[48px] tracking-wide text-accent">{total}</span>
         <span className="text-base tracking-wide text-ink-muted">{copy.result.of100}</span>
       </p>
-      <p className="mt-2 inline-flex items-center border border-brass bg-surface px-2 py-1 font-oswald text-[12px] tracking-[0.14em] text-brass uppercase">
+      <p className="mt-2 inline-flex items-center border border-accent bg-surface px-2 py-1 font-oswald text-[12px] tracking-[0.14em] text-accent uppercase">
         {copy.result.tiers[result.overallTier]}
       </p>
       <p className="mt-1 text-[12px] text-ink-muted">{copy.result.overallHint}</p>
@@ -174,7 +174,7 @@ export function DogTagCard({ result }: Props) {
       </div>
 
       <div className="mt-4 border-t border-outline pt-3">
-        <p className="mb-2 font-oswald text-[11px] tracking-[0.14em] text-brass uppercase">
+        <p className="mb-2 font-oswald text-[11px] tracking-[0.14em] text-accent uppercase">
           {copy.result.allGroups}
         </p>
         <ul className="space-y-2">

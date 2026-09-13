@@ -1,5 +1,5 @@
 /**
- * Khung KV Cóc Nhập Ngũ (lỗ tròn trong suốt). Nạp lỗi thì quay về khung brass vẽ sẵn.
+ * Khung KV Cóc Nhập Ngũ (lỗ tròn trong suốt). Nạp lỗi thì quay về khung tím vẽ sẵn.
  */
 export const avatarConfig = {
   size: 1080,

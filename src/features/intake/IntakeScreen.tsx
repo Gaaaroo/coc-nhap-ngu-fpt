@@ -134,11 +134,11 @@ export function IntakeScreen() {
       </div>
       {digitHint ? <p className="mt-2 text-sm text-danger">{digitHint}</p> : null}
       {bmi ? (
-        <div className="plate-brass mt-4 p-3">
-          <p className="font-oswald text-[11px] tracking-[0.16em] text-brass uppercase">
+        <div className="plate-accent mt-4 p-3">
+          <p className="font-oswald text-[11px] tracking-[0.16em] text-accent uppercase">
             {copy.bmiLabel}
           </p>
-          <p className="mt-1 font-oswald text-4xl leading-none text-brass">
+          <p className="mt-1 font-oswald text-4xl leading-none text-accent">
             {roundBmiDisplay(bmi.value)}
           </p>
           <p className="mt-1 text-sm text-ink-muted">{bmi.label}</p>

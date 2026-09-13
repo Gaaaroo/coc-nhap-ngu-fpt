@@ -33,7 +33,7 @@ export function FitnessScreen() {
       footer={<Button onClick={submit}>{copy.cta.continue}</Button>}
     >
       <div className="flex items-center justify-between gap-3 border border-outline bg-surface px-3 py-3 shadow-[inset_0_1px_0_var(--color-highlight)]">
-        <p className="font-oswald text-sm tracking-[0.12em] text-brass uppercase">
+        <p className="font-oswald text-sm tracking-[0.12em] text-accent uppercase">
           {copy.fitness.bar(kg)}
         </p>
         <p className="font-oswald text-2xl tabular-nums tracking-wide text-ink">{copy.fitness.timer}</p>

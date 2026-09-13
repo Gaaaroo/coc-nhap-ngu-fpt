@@ -14,16 +14,16 @@ export function LandingScreen() {
       <div className="flex items-center justify-center gap-3">
         <span
           aria-hidden
-          className="h-3.5 w-3.5 shrink-0 rounded-full border-2 border-brass bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
+          className="h-3.5 w-3.5 shrink-0 rounded-full border-2 border-accent bg-bg shadow-[inset_0_0_0_3px_var(--color-surface)]"
         />
-        <p className="font-oswald text-[11px] tracking-[0.28em] text-brass">{copy.event}</p>
+        <p className="font-oswald text-[11px] tracking-[0.28em] text-accent">{copy.event}</p>
       </div>
       {sessionNotice ? (
         <p className="mt-4 border border-danger bg-disclaimer-bg px-3 py-2 text-sm leading-relaxed text-danger">
           {sessionNotice}
         </p>
       ) : null}
-      <p className="mt-5 text-center font-oswald text-[13px] tracking-[0.24em] text-brass uppercase">
+      <p className="mt-5 text-center font-oswald text-[13px] tracking-[0.24em] text-accent uppercase">
         {copy.landing.boothCode}
       </p>
       {/* leading >= 1.1: chữ hoa tiếng Việt có dấu chồng hai tầng, chật hơn là dấu đâm vào dòng trên */}
@@ -41,7 +41,7 @@ export function LandingScreen() {
               i > 0 ? 'border-l border-outline' : ''
             }`}
           >
-            <span className="font-oswald text-[11px] tracking-[0.16em] text-brass">{beat.n}</span>
+            <span className="font-oswald text-[11px] tracking-[0.16em] text-accent">{beat.n}</span>
             <span className="text-[13px] leading-tight text-ink">{beat.label}</span>
           </li>
         ))}

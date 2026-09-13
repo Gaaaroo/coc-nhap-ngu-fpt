@@ -48,7 +48,7 @@ export function UploadScreen() {
           className="plate mx-auto max-h-64 w-full object-contain"
         />
       ) : (
-        <div className="flex min-h-40 w-full flex-col items-center justify-center rounded-[4px] border-2 border-dashed border-brass/70 bg-surface px-4 text-center text-ink-muted shadow-[inset_0_1px_0_var(--color-highlight)]">
+        <div className="flex min-h-40 w-full flex-col items-center justify-center rounded-[4px] border-2 border-dashed border-accent/70 bg-surface px-4 text-center text-ink-muted shadow-[inset_0_1px_0_var(--color-highlight)]">
           {copy.upload.dropZone}
         </div>
       )}
