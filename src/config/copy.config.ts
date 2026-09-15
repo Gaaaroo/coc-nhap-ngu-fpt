@@ -27,10 +27,10 @@ export const copy = {
   landing: {
     boothCode: 'MẬT MÃ SỐ 4',
     intro:
-      'Ba phút thôi: đo vài chỉ số, gập thanh lò xo, trả lời nhanh mấy câu về thói quen hằng ngày. Xong là biết mình đang khỏe ở đâu, hụt ở đâu — và nhận một khung ảnh riêng.',
+      'Ba phút thôi: đo vài chỉ số, bóp kẹp thể lực, trả lời nhanh mấy câu về thói quen hằng ngày. Xong là biết mình đang khỏe ở đâu, hụt ở đâu — và nhận một khung ảnh riêng.',
     beats: [
       { n: '01', label: 'Chỉ số' },
-      { n: '02', label: 'Lò xo' },
+      { n: '02', label: 'Kẹp thể lực' },
       { n: '03', label: 'Hỏi đáp' },
     ],
   },
@@ -40,8 +40,8 @@ export const copy = {
     title: 'Hồ sơ tân binh',
     female: 'Nữ',
     male: 'Nam',
-    femaleHint: 'Thanh lò xo 20kg',
-    maleHint: 'Thanh lò xo 30kg',
+    femaleHint: 'Kẹp thể lực 20kg',
+    maleHint: 'Kẹp thể lực 30kg',
     needGender: 'Vui lòng chọn giới tính.',
     age: 'Tuổi',
     height: 'Chiều cao',
@@ -50,12 +50,12 @@ export const copy = {
 
   fitness: {
     eyebrow: 'Bước 2/3',
-    title: 'Gập thanh lò xo',
-    bar: (kg: number) => `Thanh tạ ${kg}kg`,
+    title: 'Bóp kẹp thể lực',
+    bar: (kg: number) => `Kẹp ${kg}kg`,
     timer: '20 giây',
     guide:
-      'Bạn gập thanh lò xo trong 20 giây, tình nguyện viên đếm giúp. Xong thì bấm +/− hoặc bấm vào số rồi gõ.',
-    reps: 'Số lần gập',
+      'Bạn bóp kẹp thể lực trong 20 giây, tình nguyện viên đếm giúp. Xong thì bấm +/− hoặc bấm vào số rồi gõ.',
+    reps: 'Số lần bóp',
     repsUnit: 'lần',
   },
 
@@ -80,7 +80,7 @@ export const copy = {
     highlightHint: 'Nhóm nổi bật / Nhóm cần cải thiện',
     chartLabel: 'Năm nhóm lối sống',
     mix: 'Gồm thể lực 20% và năm nhóm lối sống 80%.',
-    converted: (physical: number) => `Điểm thể lực (BMI 40% + gập thanh 60%): ${physical}.`,
+    converted: (physical: number) => `Điểm thể lực (BMI 40% + bóp kẹp 60%): ${physical}.`,
     healthyHint: 'Hai nhóm cao nhất',
     defectHint: 'Hai nhóm thấp nhất',
     allGroups: 'Sáu nhóm chỉ số',

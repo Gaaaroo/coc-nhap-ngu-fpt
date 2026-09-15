@@ -6,7 +6,7 @@ export const knowledgeCards: KnowledgeCard[] = [
     id: 'k-physical',
     group: 'physical',
     title: 'THỂ LỰC VỮNG – SỨC BỀN DÀI HẠN',
-    body: 'BMI cân đối và sức mạnh từ bài gập thanh cho thấy cơ thể đang chịu tải thế nào. Tập đều, ăn đủ, ngủ đủ thì thể lực tăng dần — không cần gắng một buổi rồi bỏ cả tuần.',
+    body: 'BMI cân đối và sức mạnh từ bài bóp kẹp cho thấy cơ thể đang chịu tải thế nào. Tập đều, ăn đủ, ngủ đủ thì thể lực tăng dần — không cần gắng một buổi rồi bỏ cả tuần.',
   },
   {
     id: 'k-sleep',
